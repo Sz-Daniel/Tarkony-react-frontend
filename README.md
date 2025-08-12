@@ -1,5 +1,9 @@
 # Tarkony React Frontend - 2025.08.01
 
+## Run Instructions
+
+`npm run dev`
+
 ## State:
 
 The current focus of the project is to stabilize the core functionality: listing items on the main page and displaying detailed information in a single item view. The “Worth” and “Modding” pages are currently on hold but intended for future development. These sections will provide additional value and depth to the project once the core architecture is stabilized.
