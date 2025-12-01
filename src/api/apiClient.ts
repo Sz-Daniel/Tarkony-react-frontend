@@ -22,15 +22,15 @@ export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
     queryKey: [query.name],
     queryFn: async () => {
       const raw = await fetchGraphQLwQuery(query.query);
-      console.log('Raw: ' + query.name + ' useFetchIntoCache', raw);
+      //console.log('Raw: ' + query.name + ' useFetchIntoCache', raw);
       const useableField = raw.data[query.key] as TQuery;
-      console.log('useableField', useableField);
+      //console.log('useableField', useableField);
       const result = adapter ? adapter(useableField) : useableField;
-      console.log('Result: ' + query.name + ' useFetchIntoCache', result);
+      //console.log('Result: ' + query.name + ' useFetchIntoCache', result);
       return result;
     },
     throwOnError: (error, query) => {
-      console.log('Error: ' + query.options.queryKey, { error, query });
+      //console.log('Error: ' + query.options.queryKey, { error, query });
       return false;
     },
     staleTime: refreshTime,
@@ -42,7 +42,7 @@ export async function fetchGraphQLwQuery(query: string) {
   try {
     const response = await gqlClient.post('', { query });
     if (response.data.errors) {
-      console.log('GraphQL Error', response.data.errors);
+      //console.log('GraphQL Error', response.data.errors);
       throw new Error(JSON.stringify(response.data.errors));
     }
     return response.data;
