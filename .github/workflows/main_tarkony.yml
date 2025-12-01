@@ -43,9 +43,8 @@ jobs:
       contents: read #This is required for actions/checkout
 
     needs: build
-    
+
     steps:
-      
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -59,5 +58,4 @@ jobs:
         with:
           app-name: 'Tarkony'
           slot-name: 'Production'
-          images: 'docker.io/${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_8BF52709DF094B24AEE2889CF60FD311 }}/szabodaniel93/tarkony-react-frontend:${{ github.sha }}'
-          
+          images: 'docker.io/${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_8BF52709DF094B24AEE2889CF60FD311 }}/tarkony-react-frontend:${{ github.sha }}'
