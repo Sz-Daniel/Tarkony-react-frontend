@@ -1,5 +1,8 @@
 # Tarkony React Frontend - 2025.08.01
 
+## Live Demo
+[Check it out here](https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/)
+
 ## Run Instructions
 
 `npm run dev`
