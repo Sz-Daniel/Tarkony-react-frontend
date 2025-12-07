@@ -1,7 +1,10 @@
 # Tarkony React Frontend - 2025.08.01
 
+https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/
+
 ## Run Instructions
 
+`npm install`
 `npm run dev`
 
 ## State:
@@ -12,6 +15,8 @@ A separate backend will be developed to handle the external data source. Instead
 
 ## Tasks
 
+Third‑party data requests related to the homepage have been switched to REST API‑based retrieval, which will be primarily handled by the backend.
+
 ### Done:
 
 - Refactored Tabs into separate components with encapsulated logic.
@@ -21,6 +26,17 @@ A separate backend will be developed to handle the external data source. Instead
 - Extended CategoryMenu with category selected initial prop -> 'items' or 'weapon-mod'.
 
 ### Next:
+
+#### Data fetching
+
+- Primary data retrieval via REST API
+- In case of an error, fallback to the previous version using GraphQL query
+
+#### Mobile Responsiveness
+
+- Adjust icon size (resize or crop if needed)
+- Align text to fit within screen dimensions
+- Stack detail elements vertically for better readability
 
 #### SearchBar:
 
@@ -48,10 +64,10 @@ A separate backend will be developed to handle the external data source. Instead
 
 ### Major
 
-- Worth page (in progress).
+- Worth page
 - Modder compare Page
 - ItemSingle as a pop-up separate window in ItemList → Barter / Craft deal able to pop-up with a button click.
-- (Eventually) Whole UI refactor
+- Whole UI refactor
 
 ### Still not figured out:
 

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import type { QueryType } from './types/Items/queryType';
+import type { QueryType } from '../types/Items/queryType';
+import { graphClient } from './axios';
 
 const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
 
@@ -26,9 +26,10 @@ export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
       const useableField = raw.data[query.key] as TQuery;
       //console.log('useableField', useableField);
       const result = adapter ? adapter(useableField) : useableField;
-      //console.log('Result: ' + query.name + ' useFetchIntoCache', result);
+      //console.log('GraphQL','Result : ' + query.name + ' useFetchIntoCache',result);
       return result;
     },
+    retry: true,
     throwOnError: (error, query) => {
       //console.log('Error: ' + query.options.queryKey, { error, query });
       return false;
@@ -40,7 +41,7 @@ export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
 //Axios setup for POST, only-one type what we need
 export async function fetchGraphQLwQuery(query: string) {
   try {
-    const response = await gqlClient.post('', { query });
+    const response = await graphClient.post('', { query });
     if (response.data.errors) {
       //console.log('GraphQL Error', response.data.errors);
       throw new Error(JSON.stringify(response.data.errors));
@@ -50,15 +51,6 @@ export async function fetchGraphQLwQuery(query: string) {
     throw error;
   }
 }
-
-//Initalize Axios client
-const gqlClient = axios.create({
-  baseURL: 'https://api.tarkov.dev/graphql',
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  },
-});
 
 /***I tried so hard and gets so far ...
  * 

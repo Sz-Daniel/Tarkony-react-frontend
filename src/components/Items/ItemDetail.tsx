@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Grid } from '@mui/system';
 import type { ItemDetailResultType } from '../../api/types/Items/responseType';
-import { useItemDetailQuery } from '../../hooks/APICalls';
+import { useItemDetailGraphQuery } from '../../hooks/GraphCalls';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { CustomTabPanel, TabsDisplay, useTabsLogic } from './Tabs';
 import { Combination } from '../ui/Combination';
@@ -29,7 +29,7 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const { data, isSuccess, isLoading, isError, error } =
-    useItemDetailQuery(itemId);
+    useItemDetailGraphQuery(itemId);
   const item = isSuccess && data ? (data as ItemDetailResultType) : null;
 
   {

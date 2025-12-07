@@ -7,7 +7,7 @@ import {
   ListItemText,
   TextField,
 } from '@mui/material';
-import { useFetchIntoCache } from '../../api/apiClient';
+import { useFetchIntoCache } from '../../api/clients/graphql';
 import type { WorthNameListQueryType } from '../../api/types/Worth/queryType';
 import { worthNameListQuery } from '../../api/queries/worthQuery';
 import { ErrorOverlay } from '../ui/Status';

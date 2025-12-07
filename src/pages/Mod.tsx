@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useCategoryQuery } from '../hooks/APICalls';
+import { useCategoryGraphQuery } from '../hooks/GraphCalls';
 import { CategoryMenu } from '../components/Items/CategoryMenu';
 import { Skeleton } from '../components/ui/skeletons/Skeleton';
 import { ErrorOverlay } from '../components/ui/Status';
@@ -8,7 +8,7 @@ import { ErrorOverlay } from '../components/ui/Status';
 export function Mod() {
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
-  const categoryFetch = useCategoryQuery();
+  const categoryFetch = useCategoryGraphQuery();
 
   useEffect(() => {
     console.log('categoryFetch', categoryFetch.data);

@@ -6,7 +6,7 @@ import {
   singleItemAdapter,
   singleItemPricesAdapter,
 } from '../api/adapters/itemSingleAdapter';
-import { useFetchIntoCache } from '../api/apiClient';
+import { useFetchIntoCache } from '../api/clients/graphql';
 import {
   singleItemPricesQuery,
   singleItemQuery,
@@ -41,34 +41,24 @@ const STALE_TIME_DAILY = 1000 * 60 * 60 * 24;
 //use this pattern to data for destructed data
 //const item = isSuccess && data && data.length > 0 ? data[0] as ItemDetailResultType : null;
 
-export function useCategoryQuery() {
+export function useCategoryGraphQuery() {
   return useFetchIntoCache<CategoryType[]>(categoriesQuery);
 }
-
-export function useItemDetailQuery(itemId: string) {
+export function useItemDetailGraphQuery(itemId: string) {
   return useFetchIntoCache<ItemDetailQueryType, ItemDetailResultType>(
     itemDetailsQuery(itemId),
     itemDetailsAdapter
   );
 }
-
-export function useItemBaseListQuery() {
+export function useItemBaseListGraphQuery() {
   return useFetchIntoCache<ItemBaseQueryType[], ItemBaseResultType[]>(
     itemBaseQuery,
     itemBaseAdapter
   );
 }
-
-export function useSingleItemQuery(normalizedNameProp: string) {
+export function useSingleItemGraphQuery(normalizedNameProp: string) {
   return useFetchIntoCache<SingleItemQueryType, SingleItemResultType>(
     singleItemQuery(normalizedNameProp),
     singleItemAdapter
   );
-}
-
-export function useSingleItemPricesQuery(itemId: string) {
-  return useFetchIntoCache<
-    SingleItemPricesQueryType,
-    SingleItemPricesResultType
-  >(itemDetailsQuery(itemId), singleItemPricesAdapter);
 }

@@ -15,7 +15,7 @@ import {
   ListItemText,
   Button,
 } from '@mui/material';
-import { useSingleItemQuery } from '../hooks/APICalls';
+import { useSingleItemGraphQuery } from '../hooks/GraphCalls';
 import type {
   FleaPrice,
   SingleItemResultType,
@@ -36,7 +36,7 @@ export function ItemSingle() {
 
   const { normalizeName = '' } = useParams<Params>();
   const { data, isSuccess, isLoading, isError, error } =
-    useSingleItemQuery(normalizeName);
+    useSingleItemGraphQuery(normalizeName);
   const item = isSuccess && data ? (data as SingleItemResultType) : null;
 
   // This section validates the data:

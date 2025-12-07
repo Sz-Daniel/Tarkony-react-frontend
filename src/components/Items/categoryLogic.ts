@@ -17,6 +17,7 @@ export const useSelectedBulkCategoryLogic = ({
    * @param result The list already containing the selected category; children categories will be added to this list
    * @returns The filled array representing the selected category and all its descendants
    */
+  //console.log('Categ Data', categoriesCache);
   const deepSearch = (normalized: string, result: string[] = []) => {
     const foundNode = categoriesCache.find(
       (cat) => cat.normalizedName === normalized

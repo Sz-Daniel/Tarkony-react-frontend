@@ -35,7 +35,7 @@ export function ItemList({
   // itemDetails - accordionHandleChange
   const [selectedItem, setSelectedItem] = useState<string>('');
 
-  // Retrieves cached data using useCategoryQuery()
+  // Retrieves cached data using useCategoryGraphQuery()
   const queryClient = useQueryClient();
   const itemBaseListCache: ItemBaseResultType[] =
     queryClient.getQueryData([itemBaseQuery.name]) ?? [];
