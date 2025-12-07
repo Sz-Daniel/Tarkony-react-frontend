@@ -26,7 +26,7 @@ export function useCategoryRestQuery() {
 }
 export function useItemBaseListRestQuery() {
   return useFetchRestIntoCache<ItemBaseResultType>(
-    'https://tarkony-asp-aqa9axgghrdmb0cx.westeurope-01.azurewebsites.netapi/Frontend/ItemBase',
+    'https://tarkony-asp-aqa9axgghrdmb0cx.westeurope-01.azurewebsites.net/api/Frontend/ItemBase',
     'itemBaseQuery'
   );
 }
