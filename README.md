@@ -1,6 +1,7 @@
-# Tarkony React Frontend - 2025.12.08
+# Tarkony React Frontend - 2025.12.29
 
 ~~[Tarkony frontend website w Azure](https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/)~~
+
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
 ## Overview
@@ -36,18 +37,25 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Done:
 
-- Refactored Tabs into separate components with encapsulated logic.
-- Refactored Adapter: for complex data, mapped per-object using dedicated helper functions in adapters.ts.
-- Prepared useSingleItemPricesQuery(itemId: string) for use in ItemSingle.
-- Extended ItemList searching with RegExp support.
+- The primary data source for the application is its own backend, which automatically reverts to the original data source in case of an error.
+- Primary data retrieval via REST API.
 - Extended CategoryMenu with category selected initial prop -> 'items' or 'weapon-mod'.
-- Primary data retrieval via REST API
+- Extended ItemList searching with RegExp support.
+- Prepared useSingleItemPricesQuery(itemId: string) for use in ItemSingle.
+- Refactored Adapter: for complex data, mapped per-object using dedicated helper functions in adapters.ts.
+- Refactored Tabs into separate components with encapsulated logic.
 
 ### Next:
 
 #### Data fetching
 
 - In case of an error, fallback to the previous version using GraphQL query
+
+#### Loading skeleton to main page
+
+- Whole site layer with loading
+- Loading skeleton night mode
+- Loading skeleton to item details
 
 #### Fullstack dilemma
 
