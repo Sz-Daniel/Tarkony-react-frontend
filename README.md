@@ -1,79 +1,7 @@
-# Tarkony React Frontend - 2025.08.01
+# Tarkony React Frontend - 2025.12.08
 
-https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/
-
-## Run Instructions
-
-`npm install`
-`npm run dev`
-
-## State:
-
-The current focus of the project is to stabilize the core functionality: listing items on the main page and displaying detailed information in a single item view. The “Worth” and “Modding” pages are currently on hold but intended for future development. These sections will provide additional value and depth to the project once the core architecture is stabilized.
-
-A separate backend will be developed to handle the external data source. Instead of fetching data on each render, the backend will retrieve and store the data in a local database. The frontend will then access the data via a dedicated REST API.
-
-## Tasks
-
-Third‑party data requests related to the homepage have been switched to REST API‑based retrieval, which will be primarily handled by the backend.
-
-### Done:
-
-- Refactored Tabs into separate components with encapsulated logic.
-- Refactored Adapter: for complex data, mapped per-object using dedicated helper functions in adapters.ts.
-- Prepared useSingleItemPricesQuery(itemId: string) for use in ItemSingle.
-- Extended ItemList searching with RegExp support.
-- Extended CategoryMenu with category selected initial prop -> 'items' or 'weapon-mod'.
-
-### Next:
-
-#### Data fetching
-
-- Primary data retrieval via REST API
-- In case of an error, fallback to the previous version using GraphQL query
-
-#### Mobile Responsiveness
-
-- Adjust icon size (resize or crop if needed)
-- Align text to fit within screen dimensions
-- Stack detail elements vertically for better readability
-
-#### SearchBar:
-
-- hooks/SearchBars Wrapper cache — fetch and use only one SearchBar
-  ? prop drilling ? context
-
-#### Item:
-
-- Order by Price? Filter by Trader — click and select — opinion? — SAME AS MOD
-- ItemBaseList length === 0 NullOverlay
-
-#### Mod:
-
-- Caliber sort manually
-- Search and list everything? Order By?
-- List categories within categories — Recursive?
-
-#### Worth:
-
-- Redesign Combination with value comparison — requires implementing bestPrices data fetching.
-- In CountedItem, should we call the fetch?
-- After fetching, select the best deal?
-- In Combination, should we collect the aggregated price as a prop and pass its setter?
-- CountedItem could get a wrapper component for cases when it’s not invoked from ItemList, so we can still pass the necessary deals as a parameter.
-
-### Major
-
-- Worth page
-- Modder compare Page
-- ItemSingle as a pop-up separate window in ItemList → Barter / Craft deal able to pop-up with a button click.
-- Whole UI refactor
-
-### Still not figured out:
-
-The Combination uses bestBuy and bestSell from itemBase.
-However, when I open the page directly on itemSingle (not via redirect), these fields are missing.
-To fix this properly, I would need to loop over useSingleItemPricesQuery(itemId: string) hook — but this would violate React hook rules.
+~~[Tarkony frontend website w Azure](https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/)~~
+[Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
 ## Overview
 
@@ -91,7 +19,96 @@ As a junior developer, I find it essential to maintain a **Junior Journal (JJ)**
 - Price-to-value rankings for armor and weapons
 - A weapon permutation builder
 
-Due to gaming culture sensitivities, access to the site is restricted behind a minimalist login system.
+## Run Instructions
+
+`npm install`
+`npm run dev`
+
+## State:
+
+The current focus of the project is to stabilize the core functionality: listing items on the main page and displaying detailed information in a single item view. The “Worth” and “Modding” pages are currently on hold but intended for future development. These sections will provide additional value and depth to the project once the core architecture is stabilized.
+
+The legacy system retrieved and processed data directly from a third‑party API for display. In the current architecture, a dedicated backend server manages external data and exposes it to the frontend via a REST API. As a future security enhancement, the frontend will primarily consume data from the backend API, but in case of any issues it can seamlessly fall back to the legacy direct API integration, ensuring reliable and safe data presentation.
+
+---
+
+## Tasks
+
+### Done:
+
+- Refactored Tabs into separate components with encapsulated logic.
+- Refactored Adapter: for complex data, mapped per-object using dedicated helper functions in adapters.ts.
+- Prepared useSingleItemPricesQuery(itemId: string) for use in ItemSingle.
+- Extended ItemList searching with RegExp support.
+- Extended CategoryMenu with category selected initial prop -> 'items' or 'weapon-mod'.
+- Primary data retrieval via REST API
+
+### Next:
+
+#### Data fetching
+
+- In case of an error, fallback to the previous version using GraphQL query
+
+#### Fullstack dilemma
+
+- Data query as paginator
+- or
+- Data query fully into local storage - read as caching
+  Reason: Searching way more efficent if it's already readed in and it's the most important
+
+#### Main page filters
+
+- Calibers
+- Armors
+- Barter
+- Junk
+
+#### Mobile Responsiveness
+
+- Adjust icon size (resize or crop if needed)
+- Align text to fit within screen dimensions
+- Stack detail elements vertically for better readability
+
+#### Mod:
+
+- Caliber sort manually
+- Search and list everything? Order By?
+- List categories within categories — Recursive?
+
+#### Worth:
+
+- Redesign Combination with value comparison — requires implementing bestPrices data fetching.
+- In CountedItem, should we call the fetch?
+- After fetching, select the best deal?
+- In Combination, should we collect the aggregated price as a prop and pass its setter?
+- CountedItem could get a wrapper component for cases when it’s not invoked from ItemList, so we can still pass the necessary deals as a parameter.
+
+### Rework
+
+- Searchbar, filters on main table
+
+#### SearchBar:
+
+- hooks/SearchBars Wrapper cache — fetch and use only one SearchBar
+  ? prop drilling ? context
+
+#### Item:
+
+- Order by Price? Filter by Trader — click and select — opinion? — SAME AS MOD
+- ItemBaseList length === 0 NullOverlay
+
+### Major
+
+- Worth page
+- Modder compare Page
+- ItemSingle as a pop-up separate window in ItemList → Barter / Craft deal able to pop-up with a button click.
+- Whole UI refactor
+
+### Still not figured out:
+
+The Combination uses bestBuy and bestSell from itemBase.
+However, when I open the page directly on itemSingle (not via redirect), these fields are missing.
+To fix this properly, I would need to loop over useSingleItemPricesQuery(itemId: string) hook — but this would violate React hook rules.
 
 ---
 
@@ -99,8 +116,6 @@ Due to gaming culture sensitivities, access to the site is restricted behind a m
 
 Data is fetched from a GraphQL API:  
 [https://tarkov.dev/api/](https://tarkov.dev/api/)
-
----
 
 ## Project Structure
 
@@ -160,6 +175,8 @@ Tarkony
 ├── index.html
 └── README.md
 ```
+
+---
 
 ## More Detailed Explanations from a UX Perspective
 

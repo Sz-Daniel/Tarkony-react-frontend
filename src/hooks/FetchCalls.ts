@@ -1,45 +1,41 @@
-import { SingleItemQueryType } from '@/api/types/ItemSingle/queryType';
-import { useFetchRestIntoCache } from '../api/clients/rest';
 import {
-  CategoryType,
-  ItemBaseQueryType,
-  ItemDetailQueryType,
-} from '../api/types/Items/queryType';
-import { SingleItemResultType } from '@/api/types/ItemSingle/responseType';
+  useCategoryGraphQuery,
+  useItemBaseListGraphQuery,
+  useItemDetailGraphQuery,
+} from './GraphCalls';
 import {
-  ItemBaseResultType,
-  ItemDetailResultType,
-} from '@/api/types/Items/responseType';
-import { useFetchIntoCache } from '@/api/clients/graphql';
-import { itemDetailsQuery } from '@/api/queries/itemsQuery';
-import { itemDetailsAdapter } from '@/api/adapters/itemsAdapter';
+  useCategoryRestQuery,
+  useItemBaseListRestQuery,
+  useItemDetailRestQuery,
+} from './RestCalls';
 
-//param for weekly-daily etc
-const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
-const STALE_TIME_DAILY = 1000 * 60 * 60 * 24;
-
-//use this pattern to data for destructed data
-//const item = isSuccess && data && data.length > 0 ? data[0] as ItemDetailResultType : null;
-
-export function useCategoryQuery() {
-  return useFetchRestIntoCache<CategoryType>(
-    'http://localhost:5128/api/Frontend/Categories',
-    'categoriesQuery'
-  );
+//Elsődlegesen a Backend elérhetőséget használja
+//de ha nem elérhető átvált a forrás API-ra
+export function useCategoryFetch() {
+  const RestFetch = useCategoryRestQuery();
+  const QueryFetch = useCategoryGraphQuery();
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
 }
-export function useItemBaseListQuery() {
-  return useFetchRestIntoCache<ItemBaseResultType>(
-    'http://localhost:5128/api/Frontend/ItemBase',
-    'itemBaseQuery'
-  );
+
+export function useItemBaseListFetch() {
+  const RestFetch = useItemBaseListRestQuery();
+  const QueryFetch = useItemBaseListGraphQuery();
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
 }
-export function useItemDetailQuery(itemId: string) {
-  const restResult = useFetchRestIntoCache<ItemDetailResultType>(
-    `http://localhost:5128/api/Frontend/ItemDetail/${itemId}`,
-    `itemDetailQuery-${itemId}`
-  );
-  const graphqlResult = useFetchIntoCache<
-    ItemDetailQueryType,
-    ItemDetailResultType
-  >(itemDetailsQuery(itemId), itemDetailsAdapter);
+
+//useItemDetailGraphQuery(itemId);
+export function useItemDetailFetch(itemId: string) {
+  const RestFetch = useItemDetailRestQuery(itemId);
+  const QueryFetch = useItemDetailGraphQuery(itemId);
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
+}
+
+export function useSingleItemFetch() {
+  const RestFetch = useItemBaseListRestQuery();
+  const QueryFetch = useItemBaseListGraphQuery();
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
 }

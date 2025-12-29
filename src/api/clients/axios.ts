@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-const token = 'JWT_TOKEN_A_LOGINBŐL';
 //Initalize Axios client
 export const graphClient = axios.create({
   baseURL: 'https://api.tarkov.dev/graphql',
@@ -11,8 +10,8 @@ export const graphClient = axios.create({
 });
 
 export const restClient = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
-    //"Authorization": `Bearer ${token}`,
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },

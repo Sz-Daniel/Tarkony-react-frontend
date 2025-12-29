@@ -1,24 +1,15 @@
 import { useState } from 'react';
 import { CategoryMenu } from '../components/Items/CategoryMenu';
 import { ItemList } from '../components/Items/ItemList';
-import {
-  useCategoryGraphQuery,
-  useItemBaseListGraphQuery,
-} from '../hooks/GraphCalls';
 import { Skeleton } from '../components/ui/skeletons/Skeleton';
 import { ErrorOverlay } from '../components/ui/Status';
-import {
-  useCategoryRestQuery,
-  useItemBaseListRestQuery,
-} from '../hooks/RestCalls';
+import { useCategoryFetch, useItemBaseListFetch } from '../hooks/FetchCalls';
 
 export function Items() {
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
-  //Direct from 3rdParty
-  //const categoryFetch = useCategoryGraphQuery();
-  const categoryFetch = useCategoryRestQuery();
-  const itemBaseFetch = useItemBaseListRestQuery();
+  const categoryFetch = useCategoryFetch();
+  const itemBaseFetch = useItemBaseListFetch();
 
   return (
     <>

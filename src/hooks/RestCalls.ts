@@ -20,24 +20,24 @@ const STALE_TIME_DAILY = 1000 * 60 * 60 * 24;
 
 export function useCategoryRestQuery() {
   return useFetchRestIntoCache<CategoryType>(
-    'https://tarkony-asp-aqa9axgghrdmb0cx.westeurope-01.azurewebsites.net/api/Frontend/Categories',
+    'api/Frontend/Categories',
     'categoriesQuery'
   );
 }
 export function useItemBaseListRestQuery() {
   return useFetchRestIntoCache<ItemBaseResultType>(
-    'https://tarkony-asp-aqa9axgghrdmb0cx.westeurope-01.azurewebsites.net/api/Frontend/ItemBase',
+    'api/Frontend/ItemBase',
     'itemBaseQuery'
   );
 }
 export function useItemDetailRestQuery(itemId: string) {
   return useFetchRestIntoCache<ItemDetailResultType>(
-    `https://tarkony-asp-aqa9axgghrdmb0cx.westeurope-01.azurewebsites.net/api/Frontend/ItemDetail/${itemId}`,
+    `api/Frontend/ItemDetail/${itemId}`,
     `itemDetailQuery-${itemId}`
   );
 }
 
-/**
+/** local http://localhost:5128/
  * export function useItemDetailRestQuery(itemId: string) {
   return useFetchRestIntoCache<ItemDetailResultType>(
     itemDetailsQuery(itemId),

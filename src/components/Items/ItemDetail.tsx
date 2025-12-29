@@ -31,10 +31,6 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
   const { data, isSuccess, isLoading, isError, error } =
     useItemDetailGraphQuery(itemId);
   const item = isSuccess && data ? (data as ItemDetailResultType) : null;
-
-  {
-    isError && <ErrorOverlay message={error.message} />;
-  }
   {
     isLoading && <Skeleton component="ItemDetail" />;
   }
@@ -50,6 +46,7 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
 
   return (
     <>
+      {isError && <ErrorOverlay message={error.message} />}
       {item && (
         <AccordionDetails>
           <Box>
