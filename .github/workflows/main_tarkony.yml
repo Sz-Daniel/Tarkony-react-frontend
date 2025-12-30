@@ -1,0 +1,61 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy container app to Azure Web App - Tarkony
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read #This is required for actions/checkout
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: docker.io/
+          username: ${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_8BF52709DF094B24AEE2889CF60FD311 }}
+          password: ${{ secrets.AZUREAPPSERVICE_CONTAINERPASSWORD_82960D1396124A309483FCEFC07F832A }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: docker.io/${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_8BF52709DF094B24AEE2889CF60FD311 }}/szabodaniel93/tarkony-react-frontend:${{ github.sha }}
+          file: ./Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
+    needs: build
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_45071921C02A4B5D943323815C578648 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C2630020908A48F59D80588CB91CF4A1 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B1DA753FC9054E86B39C7C2E91606E94 }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'Tarkony'
+          slot-name: 'Production'
+          images: 'docker.io/${{ secrets.AZUREAPPSERVICE_CONTAINERUSERNAME_8BF52709DF094B24AEE2889CF60FD311 }}/szabodaniel93/tarkony-react-frontend:${{ github.sha }}'
