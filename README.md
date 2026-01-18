@@ -1,18 +1,22 @@
-# Tarkony React Frontend - 2025.12.29
+# Tarkony React Frontend - 2026.01
 
 ~~[Tarkony frontend website w Azure](https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/)~~
 
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
+Tarkony backend source offline
+
+# HR section
+
 ## Project Summary
 
-In this project, I am expanding my frontend skills (React/TypeScript), building everything on a system‑level structure with my own backend running behind it. Its purpose is to deliver video game item data to the user quickly and according to a detailed, well‑structured data model
+In this project, I am enhancing my frontend skills (React/TypeScript) by creating a system-level frontend that quickly delivers video game item data through a responsive, data-driven UI built on a clear, well-structured model.
 
-Tech stack: React, Typescript, TanstackQuery
+Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API
 
 ## In progress task: Optimalization
 
-The goal is to ensure long‑term data availability on the client side using IndexedDB as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source with REST API becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it through GraphQL on the client side in a way that preserves normal behavior, so the user does not notice any difference.
+The goal is to ensure long‑term data availability on the client side using local database as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it on the client side in a way that preserves normal behavior, so the user does not notice any difference.
 
 ---
 
