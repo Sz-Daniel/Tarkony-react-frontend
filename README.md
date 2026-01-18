@@ -4,11 +4,21 @@
 
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
-## Overview
+## Project Summary
 
-As a junior developer, I find it essential to maintain a **Junior Journal (JJ)** — a disciplined practice of detailed commenting, continuously updating the README, and logging any replaced methods or solutions. This helps track progress and decisions transparently.
+In this project, I am expanding my frontend skills (React/TypeScript), building everything on a system‑level structure with my own backend running behind it. Its purpose is to deliver video game item data to the user quickly and according to a detailed, well‑structured data model
+
+Tech stack: React, Typescript, TanstackQuery
+
+## In progress task: Optimalization
+
+The goal is to ensure long‑term data availability on the client side using IndexedDB as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source with REST API becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it through GraphQL on the client side in a way that preserves normal behavior, so the user does not notice any difference.
 
 ---
+
+# Technical section
+
+As a junior developer, I find it essential to maintain a **Junior Journal (JJ)** — a disciplined practice of detailed commenting, continuously updating the README, and logging any replaced methods or solutions. This helps track progress and decisions transparently.
 
 ## Project Description
 
@@ -22,8 +32,13 @@ As a junior developer, I find it essential to maintain a **Junior Journal (JJ)**
 
 ## Run Instructions
 
-`npm install`
-`npm run dev`
+```powershell
+npm install
+
+npm run build
+
+npm run dev
+```
 
 ## State:
 
@@ -47,22 +62,18 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Next:
 
-#### Data fetching
+#### Data load optimalization
 
-- In case of an error, fallback to the previous version using GraphQL query
+- IndexedDB implementation for main source data loading
+- Backend DB load directly into IndexedDB
+- Redis load ItemBase ( From Backend / thirdparty API ) while the whole db loading into IndexedDB
+- Backend Offline Fallback pipeline: continuously checks backend status, loads legacy data into Redis, and if the backend remains offline, transfers the data from Redis into IndexedDB. The end result matches normal operation
 
 #### Loading skeleton to main page
 
 - Whole site layer with loading
 - Loading skeleton night mode
 - Loading skeleton to item details
-
-#### Fullstack dilemma
-
-- Data query as paginator
-- or
-- Data query fully into local storage - read as caching
-  Reason: Searching way more efficent if it's already readed in and it's the most important
 
 #### Main page filters
 

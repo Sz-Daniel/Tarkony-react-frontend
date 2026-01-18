@@ -12,11 +12,7 @@
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "types": ["vite/client"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "outDir": "./dist"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "plan"]

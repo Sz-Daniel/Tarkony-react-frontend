@@ -5,7 +5,7 @@ import { ItemSingle } from '../pages/ItemSingle';
 
 export function AppRoutes() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Tarkony-react-frontend">
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Items />} />
