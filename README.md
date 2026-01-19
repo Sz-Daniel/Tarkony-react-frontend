@@ -70,8 +70,8 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 - IndexedDB implementation for main source data loading
 - Backend DB load directly into IndexedDB
-- Redis load ItemBase ( From Backend / thirdparty API ) while the whole db loading into IndexedDB
-- Backend Offline Fallback pipeline: continuously checks backend status, loads legacy data into Redis, and if the backend remains offline, transfers the data from Redis into IndexedDB. The end result matches normal operation
+- Query load ItemBase ( From Backend / thirdparty API ) while the whole db loading into IndexedDB
+- Backend Offline Fallback pipeline: continuously checks backend status, loads legacy data into Query cache, and if the backend remains offline, transfers the data from Query cache into IndexedDB. The end result matches normal operation
 
 #### Loading skeleton to main page
 
