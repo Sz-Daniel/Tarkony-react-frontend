@@ -19,9 +19,10 @@ import {
   itemDetailsQuery,
 } from '../api/queries/itemsQuery';
 import {
-  BitcoinQueryType,
-  BitcoinResponseType,
+  PriceHistoryQueryType,
+  PriceHistoryResponseType,
 } from '../api/types/Bitcoin/queryType';
+
 import type {
   CategoryType,
   ItemBaseQueryType,
@@ -69,7 +70,7 @@ export function useSingleItemGraphQuery(normalizedNameProp: string) {
   );
 }
 export function useBitcoinGraphQuery() {
-  return useFetchIntoCache<BitcoinQueryType[], BitcoinResponseType[]>(
+  return useFetchIntoCache<PriceHistoryQueryType[], PriceHistoryResponseType[]>(
     bitcoinQuery,
     bitcoinAdapter,
   );
