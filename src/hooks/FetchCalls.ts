@@ -1,4 +1,5 @@
 import {
+  useBitcoinGraphQuery,
   useCategoryGraphQuery,
   useItemBaseListGraphQuery,
   useItemDetailGraphQuery,
@@ -38,4 +39,15 @@ export function useSingleItemFetch() {
   const QueryFetch = useItemBaseListGraphQuery();
   if (RestFetch.isError) return QueryFetch;
   return RestFetch;
+}
+
+export function useBitcoinFetch() {
+  /**
+  const RestFetch = useItemBaseListRestQuery();
+  const QueryFetch = useBitcoinGraphQuery();
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
+ */
+  const QueryFetch = useBitcoinGraphQuery();
+  return QueryFetch;
 }

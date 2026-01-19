@@ -4,11 +4,7 @@
  * Query string for the API call
  */
 
-export type QueryType = {
-  name: string;
-  key: string;
-  query: string;
-};
+import { QueryType } from '../types/type';
 
 export const worthNameListQuery = {
   name: `worthNameList`,

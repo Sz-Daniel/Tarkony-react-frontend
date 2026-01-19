@@ -1,14 +1,3 @@
-/** Query type for API GraphQL calls -> api \ query.ts
- * name: key name for cache
- * key: Type key which indicate what kinda data result obj will get and helps to give back only the array
- * query: containts query string
- */
-export type QueryType = {
-  name: string;
-  key: string;
-  query: string;
-};
-
 export type SingleItemPricesQueryType = {
   id: string;
 

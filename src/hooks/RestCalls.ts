@@ -1,15 +1,9 @@
-import { SingleItemQueryType } from '@/api/types/ItemSingle/queryType';
 import { useFetchRestIntoCache } from '../api/clients/rest';
-import {
-  CategoryType,
-  ItemBaseQueryType,
-  ItemDetailQueryType,
-} from '../api/types/Items/queryType';
-import { SingleItemResultType } from '@/api/types/ItemSingle/responseType';
+import { CategoryType } from '../api/types/Items/queryType';
 import {
   ItemBaseResultType,
   ItemDetailResultType,
-} from '@/api/types/Items/responseType';
+} from '../api/types/Items/responseType';
 
 //param for weekly-daily etc
 const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
@@ -21,19 +15,19 @@ const STALE_TIME_DAILY = 1000 * 60 * 60 * 24;
 export function useCategoryRestQuery() {
   return useFetchRestIntoCache<CategoryType>(
     'api/Frontend/Categories',
-    'categoriesQuery'
+    'categoriesQuery',
   );
 }
 export function useItemBaseListRestQuery() {
   return useFetchRestIntoCache<ItemBaseResultType>(
     'api/Frontend/ItemBase',
-    'itemBaseQuery'
+    'itemBaseQuery',
   );
 }
 export function useItemDetailRestQuery(itemId: string) {
   return useFetchRestIntoCache<ItemDetailResultType>(
     `api/Frontend/ItemDetail/${itemId}`,
-    `itemDetailQuery-${itemId}`
+    `itemDetailQuery-${itemId}`,
   );
 }
 

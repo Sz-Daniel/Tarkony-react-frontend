@@ -1,3 +1,4 @@
+import { bitcoinAdapter } from '../api/adapters/bitcoinAdapter';
 import {
   itemBaseAdapter,
   itemDetailsAdapter,
@@ -7,6 +8,7 @@ import {
   singleItemPricesAdapter,
 } from '../api/adapters/itemSingleAdapter';
 import { useFetchIntoCache } from '../api/clients/graphql';
+import { bitcoinQuery } from '../api/queries/bitcoinQuery';
 import {
   singleItemPricesQuery,
   singleItemQuery,
@@ -16,6 +18,10 @@ import {
   itemBaseQuery,
   itemDetailsQuery,
 } from '../api/queries/itemsQuery';
+import {
+  BitcoinQueryType,
+  BitcoinResponseType,
+} from '../api/types/Bitcoin/queryType';
 import type {
   CategoryType,
   ItemBaseQueryType,
@@ -47,18 +53,24 @@ export function useCategoryGraphQuery() {
 export function useItemDetailGraphQuery(itemId: string) {
   return useFetchIntoCache<ItemDetailQueryType, ItemDetailResultType>(
     itemDetailsQuery(itemId),
-    itemDetailsAdapter
+    itemDetailsAdapter,
   );
 }
 export function useItemBaseListGraphQuery() {
   return useFetchIntoCache<ItemBaseQueryType[], ItemBaseResultType[]>(
     itemBaseQuery,
-    itemBaseAdapter
+    itemBaseAdapter,
   );
 }
 export function useSingleItemGraphQuery(normalizedNameProp: string) {
   return useFetchIntoCache<SingleItemQueryType, SingleItemResultType>(
     singleItemQuery(normalizedNameProp),
-    singleItemAdapter
+    singleItemAdapter,
+  );
+}
+export function useBitcoinGraphQuery() {
+  return useFetchIntoCache<BitcoinQueryType[], BitcoinResponseType[]>(
+    bitcoinQuery,
+    bitcoinAdapter,
   );
 }

@@ -1,9 +1,3 @@
-export type QueryType = {
-  name: string;
-  key: string;
-  query: string;
-};
-
 export const modGearModListQuery = {
   name: `modGearModList`,
   key: 'items',

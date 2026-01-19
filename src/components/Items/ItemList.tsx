@@ -2,6 +2,7 @@ import {
   Accordion,
   AccordionSummary,
   Box,
+  Button,
   Pagination,
   Stack,
   Typography,
@@ -15,6 +16,7 @@ import { SearchBar } from '../ui/SeachBar';
 import type { ItemBaseResultType } from '../../api/types/Items/responseType';
 import { Item } from '../../themes/themes';
 import { buildSearchRegex } from '../Worth/ListSearchBar';
+import { useNavigate } from 'react-router-dom';
 
 type ItemListProps = {
   selectedCategory: string[];
@@ -34,6 +36,8 @@ export function ItemList({
   const [searchedName, setSearchedName] = useState<string>('');
   // itemDetails - accordionHandleChange
   const [selectedItem, setSelectedItem] = useState<string>('');
+
+  const navigate = useNavigate();
 
   // Retrieves cached data using useCategoryGraphQuery()
   const queryClient = useQueryClient();
@@ -73,13 +77,23 @@ export function ItemList({
   const itemsPerPage = 10;
   const paginatedItems = showItem.slice(
     (page - 1) * itemsPerPage,
-    page * itemsPerPage
+    page * itemsPerPage,
   );
 
   return (
     <>
       <Box sx={{ padding: 4 }}>
         <SearchBar setSearchedName={setSearchedName} />
+      </Box>
+      <Box sx={{ padding: 4 }}>
+        <Button
+          sx={{ flex: 2, alignSelf: 'flex-start' }}
+          onClick={() => {
+            navigate('/bitcoin');
+          }}
+        >
+          Bitcoin price
+        </Button>
       </Box>
       {paginatedItems.map((item: ItemBaseResultType) => (
         <Accordion

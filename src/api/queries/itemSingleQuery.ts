@@ -1,10 +1,5 @@
-import type { QueryType } from '../types/Items/queryType';
+import { QueryType } from '../types/type';
 
-/** Queries
- * Name usage for cache naming
- * Key type name for identifying the object being processed so that the fetch can return an array
- * Query string for the API call
- */
 export const singleItemQuery = (normalizedName: string = ''): QueryType => {
   return {
     name: `singleItemQuery-${normalizedName}`,

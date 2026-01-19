@@ -1,14 +1,3 @@
-/** Query type for API GraphQL calls -> api\query.ts
- * name: key name for cache
- * key: type key indicating the kind of data the result object will contain, enabling extraction of only the array
- * query: contains the query string
- */
-export type QueryType = {
-  name: string;
-  key: string;
-  query: string;
-};
-
 export type CategoryType = BaseType & {
   children: normalizedName[];
   parent: normalizedName;
