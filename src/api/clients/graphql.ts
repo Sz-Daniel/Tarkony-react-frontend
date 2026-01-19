@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { graphClient } from './axios';
 import { QueryType } from '../types/type';
 
@@ -26,11 +27,7 @@ export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
       const useableField = raw.data[query.key] as TQuery;
       //console.log('useableField', useableField);
       const result = adapter ? adapter(useableField) : useableField;
-      console.log(
-        'GraphQL',
-        'Result : ' + query.name + ' useFetchIntoCache',
-        result,
-      );
+      //console.log('GraphQL','Result : ' + query.name + ' useFetchIntoCache',result);
       return result;
     },
     retry: true,
