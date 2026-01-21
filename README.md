@@ -14,15 +14,17 @@ In this project, I am enhancing my frontend skills (React/TypeScript) by creatin
 
 Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API
 
-## In Progress: Bitcoin Price History Visualization
+## DONE: Bitcoin Price History Visualization
 
 An ongoing frontend feature that displays historical Bitcoin price movements from a video game dataset on a dedicated `/bitcoin` page, using Recharts for data visualization.
 
-## Next: Optimalization
+## Next: Data loading optimalization
 
 The goal is to ensure long‑term data availability on the client side using local database as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it on the client side in a way that preserves normal behavior, so the user does not notice any difference.
 
----
+## Next: Mobile-first responsive design optimalization
+
+## The goal is for all components—regardless of where they are used—to be able to adapt flexibly to different view sizes and aspect ratios, including large and small displays, tablets, and mobile phones.
 
 # Technical section
 
@@ -138,6 +140,8 @@ However, when I open the page directly on itemSingle (not via redirect), these f
 To fix this properly, I would need to loop over useSingleItemPricesQuery(itemId: string) hook — but this would violate React hook rules.
 
 ---
+
+### It does not include further developments, such as REST API handling or additional optimizations.
 
 ## API Source
 
