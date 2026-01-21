@@ -24,7 +24,7 @@ The goal is to ensure long‑term data availability on the client side using loc
 
 ## Next: Mobile-first responsive design optimalization
 
-## The goal is for all components—regardless of where they are used—to be able to adapt flexibly to different view sizes and aspect ratios, including large and small displays, tablets, and mobile phones.
+The goal is for all components—regardless of where they are used—to be able to adapt flexibly to different view sizes and aspect ratios, including large and small displays, tablets, and mobile phones.
 
 # Technical section
 
