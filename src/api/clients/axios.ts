@@ -10,7 +10,7 @@ export const graphClient = axios.create({
 });
 
 export const restClient = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: 'https://tarkony-asp.runasp.net/',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
