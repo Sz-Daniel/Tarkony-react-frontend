@@ -30,7 +30,6 @@ export function useFetchRestIntoCache<TQuery>(
 //Axios setup for GET, only-one type what we need
 export async function fetchRest(endpoint: string) {
   try {
-    console.info('Backend', import.meta.env.VITE_BACKEND_URL);
     const response = await restClient.get(endpoint); // relatív útvonal
     if (response.data.errors) {
       throw new Error(JSON.stringify(response.data.errors));
