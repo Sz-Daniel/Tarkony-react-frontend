@@ -9,6 +9,13 @@ export type QueryType = {
   query: string;
 };
 
+export type QueryTypeT = {
+  cacheName: string;
+  dataKey: string;
+  graphqlQuery: string;
+  restURL: string;
+};
+
 // Props type
 type ItemDetailPropsType = {
   itemId: string;

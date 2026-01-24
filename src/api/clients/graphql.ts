@@ -14,7 +14,7 @@ const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
  * @returns The data corresponding to the query key, filtered to return only the array; optionally reformats the data structure via the adapter for easier use
  */
 
-export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
+export function useFetchGraphQLIntoCache<TQuery, TAdapter = TQuery>(
   query: QueryType,
   adapter?: (data: TQuery) => TAdapter,
   refreshTime = STALE_TIME_WEEKLY,
@@ -23,16 +23,28 @@ export function useFetchIntoCache<TQuery, TAdapter = TQuery>(
     queryKey: [query.name],
     queryFn: async () => {
       const raw = await fetchGraphQLwQuery(query.query);
-      //console.log('Raw: ' + query.name + ' useFetchIntoCache', raw);
+      /**
+       * console.log(
+        'GRAPHQL',
+        'Raw: ' + query.name + ' useFetchGraphQLIntoCache',
+        raw,
+      );
+       */
       const useableField = raw.data[query.key] as TQuery;
-      //console.log('useableField', useableField);
+      //console.log('GRAPHQL', 'useableField', useableField);
       const result = adapter ? adapter(useableField) : useableField;
-      //console.log('GraphQL','Result : ' + query.name + ' useFetchIntoCache',result);
+      /**
+       * console.log(
+        'GraphQL',
+        'Result : ' + query.name + ' useFetchGraphQLIntoCache',
+        result,
+      );
+       */
       return result;
     },
     retry: true,
     throwOnError: (error, query) => {
-      //console.log('Error: ' + query.options.queryKey, { error, query });
+      //console.log('GRAPHQL','Error: ' + query.options.queryKey, { error, query });
       return false;
     },
     staleTime: refreshTime,

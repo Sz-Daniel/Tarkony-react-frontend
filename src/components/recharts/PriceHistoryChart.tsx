@@ -2,17 +2,17 @@ import {
   CartesianGrid,
   Line,
   LineChart,
-  RenderableText,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 
-import { PriceHistoryResponseType } from '../../api/types/Bitcoin/queryType';
+import { HistoricalPrices } from '../../api/types_/type';
 
+//Helyett
 type Params = {
-  data: PriceHistoryResponseType[];
+  data: HistoricalPrices[];
 };
 
 export function PriceHistoryChart({ data }: Params) {
@@ -22,7 +22,9 @@ export function PriceHistoryChart({ data }: Params) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey="timestamp"
-          tickFormatter={(value) => value.toLocaleDateString()}
+          tickFormatter={(value) =>
+            new Date(Number(value)).toLocaleDateString()
+          }
         />
         <YAxis dataKey="price" />
 
@@ -37,8 +39,8 @@ export function PriceHistoryChart({ data }: Params) {
           content={({ label, payload }) => {
             if (!payload || !payload.length) return null;
 
-            const row: PriceHistoryResponseType = payload[0].payload; // ← teljes rekord
-
+            //const row: HistoricalPrices = payload[0].payload; // ← teljes rekord
+            const row = payload[0].payload as HistoricalPrices;
             return (
               <div
                 style={{
@@ -50,7 +52,9 @@ export function PriceHistoryChart({ data }: Params) {
               >
                 <p>Price: {row.price}</p>
                 <p>Price Min: {row.priceMin}</p>
-                <p>Date: {row.timestamp.toLocaleDateString()}</p>
+                <p>
+                  Date: {new Date(Number(row.timestamp)).toLocaleDateString()}
+                </p>
                 <p>Offer Count: {row.offerCount}</p>
                 <p>Offer Count Min: {row.offerCountMin}</p>
               </div>
@@ -61,3 +65,6 @@ export function PriceHistoryChart({ data }: Params) {
     </ResponsiveContainer>
   );
 }
+/**
+ *
+ */

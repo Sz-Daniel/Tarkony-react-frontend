@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import type { CategoryType } from '../../api/types/Items/queryType';
+import { CategoriesData } from '../../api/types_/Items/queryType';
 
 type Props = {
   selected: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string[]>>;
-  categoriesCache: CategoryType[];
+  categoriesCache: CategoriesData[];
 };
 
 export const useSelectedBulkCategoryLogic = ({
@@ -20,14 +20,14 @@ export const useSelectedBulkCategoryLogic = ({
   //console.log('Categ Data', categoriesCache);
   const deepSearch = (normalized: string, result: string[] = []) => {
     const foundNode = categoriesCache.find(
-      (cat) => cat.normalizedName === normalized
+      (cat) => cat.normalizedName === normalized,
     );
     const foundName = foundNode?.normalizedName ?? '';
 
     result.push(foundName);
 
     foundNode?.children.forEach((child) =>
-      deepSearch(child.normalizedName, result)
+      deepSearch(child.normalizedName, result),
     );
 
     return result;

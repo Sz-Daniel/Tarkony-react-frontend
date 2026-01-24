@@ -10,13 +10,15 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useQueryClient } from '@tanstack/react-query';
 import { memo, useEffect, useMemo, useState } from 'react';
-import { itemBaseQuery } from '../../api/queries/itemsQuery';
+
 import { ItemDetailDisplay } from './ItemDetail';
 import { SearchBar } from '../ui/SeachBar';
-import type { ItemBaseResultType } from '../../api/types/Items/responseType';
 import { Item } from '../../themes/themes';
-import { buildSearchRegex } from '../Worth/ListSearchBar';
+
 import { useNavigate } from 'react-router-dom';
+
+import { ItemBaseResponse } from '../../api/types_/Items/responseType';
+import { itemBaseQuery } from '../../api/queries/_';
 
 type ItemListProps = {
   selectedCategory: string[];
@@ -31,7 +33,7 @@ export function ItemList({
   //paginator
   const [page, setPage] = useState(1);
   // Full item list that will be filtered in useEffect based on selectedCategory and searchedName
-  const [showItem, setShowItem] = useState<ItemBaseResultType[]>([]);
+  const [showItem, setShowItem] = useState<ItemBaseResponse[]>([]);
   // setSearchedName is updated via SearchBar
   const [searchedName, setSearchedName] = useState<string>('');
   // itemDetails - accordionHandleChange
@@ -41,8 +43,8 @@ export function ItemList({
 
   // Retrieves cached data using useCategoryGraphQuery()
   const queryClient = useQueryClient();
-  const itemBaseListCache: ItemBaseResultType[] =
-    queryClient.getQueryData([itemBaseQuery.name]) ?? [];
+  const itemBaseListCache: ItemBaseResponse[] =
+    queryClient.getQueryData([itemBaseQuery.cacheName]) ?? [];
 
   // Filters the displayed item list by category and searchedName
   const filteredItems = useMemo(() => {
@@ -95,7 +97,7 @@ export function ItemList({
           Bitcoin price
         </Button>
       </Box>
-      {paginatedItems.map((item: ItemBaseResultType) => (
+      {paginatedItems.map((item: ItemBaseResponse) => (
         <Accordion
           key={item.id}
           expanded={selectedItem === item.id}
@@ -125,7 +127,7 @@ export function ItemList({
  * ItemDetailDisplay itself does not require memoization.
  */
 type ItemBaseDisplayProps = {
-  item: ItemBaseResultType;
+  item: ItemBaseResponse;
 };
 const ItemBaseDisplay = memo(({ item }: ItemBaseDisplayProps) => {
   return (
@@ -187,3 +189,15 @@ const ItemBaseDisplay = memo(({ item }: ItemBaseDisplayProps) => {
     </>
   );
 });
+
+export function buildSearchRegex(query: string) {
+  const parts = query
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')); // escape speciális regex karaktereket
+
+  const pattern = parts.join('.*?'); // a szavak közé tetszőleges karakterek jöhetnek
+
+  return new RegExp(pattern, 'i'); // kis/nagybetűtől független keresés
+}

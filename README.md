@@ -12,13 +12,13 @@ Tarkony backend source offline
 
 In this project, I am enhancing my frontend skills (React/TypeScript) by creating a system-level frontend that quickly delivers video game item data through a responsive, data-driven UI built on a clear, well-structured model.
 
-Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API
+Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API, Recharts
 
 ### Done: Bitcoin Price History Visualization
 
 An ongoing frontend feature that displays historical Bitcoin price movements from a video game dataset on a dedicated `/bitcoin` page, using Recharts for data visualization.
 
-### Next: Data loading optimalization
+### Done: Data loading optimalization
 
 The goal is to ensure long‑term data availability on the client side using local database as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it on the client side in a way that preserves normal behavior, so the user does not notice any difference.
 
@@ -62,7 +62,9 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Done:
 
-- The primary data source for the application is its own backend, which automatically reverts to the original data source in case of an error.
+- Improved query logic within one UseQuery, now checks the availability of the REST API server. If the server is unavailable, it automatically switches to a third-party GraphQL API.
+- Implemented Recharts to show the price history of every item. Created a separate page for Bitcoin.
+- The primary data source for the application is its own backend, which automatically reverts to the original data source in case of an error - separated fetch calls.
 - Primary data retrieval via REST API.
 - Extended CategoryMenu with category selected initial prop -> 'items' or 'weapon-mod'.
 - Extended ItemList searching with RegExp support.

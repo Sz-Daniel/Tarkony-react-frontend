@@ -10,14 +10,16 @@ import {
   Typography,
 } from '@mui/material';
 import { Grid } from '@mui/system';
-import type { ItemDetailResultType } from '../../api/types/Items/responseType';
-import { useItemDetailGraphQuery } from '../../hooks/GraphCalls';
+
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { CustomTabPanel, TabsDisplay, useTabsLogic } from './Tabs';
 import { Combination } from '../ui/Combination';
 import { useState } from 'react';
 import { Skeleton } from '../ui/skeletons/Skeleton';
 import { ErrorOverlay } from '../ui/Status';
+
+import { useItemDetailFetch } from '../../hooks_/FetchCalls';
+import { ItemDetailResponse } from '../../api/types_/Items/responseType';
 
 type Props = {
   itemId: string;
@@ -28,9 +30,10 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
 
   const [tabIndex, setTabIndex] = useState(0);
 
+  //const { data, isSuccess, isLoading, isError, error } =useItemDetailGraphQuery(itemId);
   const { data, isSuccess, isLoading, isError, error } =
-    useItemDetailGraphQuery(itemId);
-  const item = isSuccess && data ? (data as ItemDetailResultType) : null;
+    useItemDetailFetch(itemId);
+  const item = isSuccess && data ? (data as ItemDetailResponse) : null;
   {
     isLoading && <Skeleton component="ItemDetail" />;
   }
@@ -102,8 +105,8 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
                                           entry.playertoTraderRequirements
                                             .traderName
                                         }: ${entry.price?.toLocaleString()} ${
-                              entry.priceCurrency
-                            }
+                                          entry.priceCurrency
+                                        }
                                         `}
                             secondary={
                               entry.limit ||
@@ -145,7 +148,7 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
                     .filter(
                       (c) =>
                         c.stationRequirement !== null &&
-                        c.questRequirement !== null
+                        c.questRequirement !== null,
                     )
                     .map((craft, i) => {
                       return (

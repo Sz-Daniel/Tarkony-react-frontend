@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
-import type { ResponseCountedItem } from '../../api/types/ItemSingle/responseType';
-import type { PriceDeal } from '../../api/types/Items/responseType';
+import type { ResponseCountedItem } from '../../../../../../junk/20260122/HE/api_/types__/ItemSingle/responseType';
+import type { PriceDeal } from '../../../../../../junk/20260122/HE/api_/types__/Items/responseType';
 
 type Props = {
   item: ResponseCountedItem;
@@ -35,7 +35,7 @@ export function CountedItem({ item, bestDeal }: Props) {
           {item.count > 1 && (
             <Typography variant="body2" align="center">
               {`${Math.floor(
-                (bestDeal?.price ?? 0) * item.count
+                (bestDeal?.price ?? 0) * item.count,
               ).toLocaleString()} at ${bestDeal?.place}`}
             </Typography>
           )}

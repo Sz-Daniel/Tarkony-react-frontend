@@ -7,11 +7,12 @@ import {
   ListItemText,
   TextField,
 } from '@mui/material';
-import { useFetchIntoCache } from '../../api/clients/graphql';
-import type { WorthNameListQueryType } from '../../api/types/Worth/queryType';
+
+import type { WorthNameListQueryType } from '../../../../../../junk/20260122/HE/api_/types__/Worth/queryType';
 import { worthNameListQuery } from '../../api/queries/worthQuery';
 import { ErrorOverlay } from '../ui/Status';
 import { useMemo, useState } from 'react';
+import { useFetchGraphQLIntoCache } from '../../api/clients/graphql';
 
 type Props = {
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>;
@@ -22,7 +23,7 @@ export function ListSearchBar(props: Props) {
   const [searched, setSearched] = useState('');
 
   const { data, isError, error, isSuccess, isLoading } =
-    useFetchIntoCache<WorthNameListQueryType[]>(worthNameListQuery);
+    useFetchGraphQLIntoCache<WorthNameListQueryType[]>(worthNameListQuery);
 
   const filtered = useMemo(() => {
     const lower = searched.trim().toLowerCase();

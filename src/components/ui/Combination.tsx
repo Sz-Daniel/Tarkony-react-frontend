@@ -1,16 +1,19 @@
 import { Box, List, Paper, Typography } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
+import { CountedItem } from './CountedItem';
 import type {
   Barter,
   Craft,
   ResponseCountedItem,
-} from '../../api/types/ItemSingle/responseType';
-import { CountedItem } from './CountedItem';
-import { useQueryClient } from '@tanstack/react-query';
+} from '../../../../../../junk/20260122/HE/api_/types__/ItemSingle/responseType';
+
 import type {
   ItemBaseResultType,
   PriceDeal,
-} from '../../api/types/Items/responseType';
-import { itemBaseQuery } from '../../api/queries/itemsQuery';
+} from '../../../../../../junk/20260122/HE/api_/types__/Items/responseType';
+//import { itemBaseQuery } from '../../api/queries/itemsQuery';
+import { ItemBaseResponse } from '../../api/types_/Items/responseType';
+import { itemBaseQuery } from '../../api/queries/_';
 
 /**
  * Utilizes type discrimination to create a template compatible with both types.
@@ -27,13 +30,13 @@ type Props = { props: CombinationBarter | CombinationCraft };
 
 export function Combination({ props }: Props) {
   const queryClient = useQueryClient();
-  const itemBaseListCache: ItemBaseResultType[] =
-    queryClient.getQueryData([itemBaseQuery.name]) ?? [];
+  const itemBaseListCache: ItemBaseResponse[] =
+    queryClient.getQueryData([itemBaseQuery.cacheName]) ?? [];
 
   // Find the best purchase price
   const checkPrice = (
     itemId: string,
-    sell: boolean = false
+    sell: boolean = false,
   ): PriceDeal | null => {
     const found = itemBaseListCache.find((entry) => entry.id === itemId);
     if (!found) return null;
@@ -64,8 +67,8 @@ export function Combination({ props }: Props) {
     buyout /
       props.outputItems.reduce(
         (quantity, item) => (quantity = quantity + item.count),
-        0
-      )
+        0,
+      ),
   );
 
   // Prepare the input section before rendering
@@ -78,7 +81,7 @@ export function Combination({ props }: Props) {
         buyout = null;
       }
       return <CountedItem key={j} item={outItems} bestDeal={bestDeal} />;
-    }
+    },
   );
   return (
     <>

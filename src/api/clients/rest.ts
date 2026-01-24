@@ -7,20 +7,20 @@ const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
 export function useFetchRestIntoCache<TQuery>(
   apiUrl: string,
   cacheName: string,
-  refreshTime = STALE_TIME_WEEKLY
+  refreshTime = STALE_TIME_WEEKLY,
 ) {
   return useQuery({
     queryKey: [cacheName],
     queryFn: async () => {
       const raw = await fetchRest(apiUrl);
       const useableField = raw as TQuery;
-      //console.log('Rest', 'Result:' + ' useFetchIntoCache', useableField);
+      console.log('Rest', 'Result:' + ' useFetchRestIntoCache', useableField);
       const obj = useableField;
       return obj;
     },
     retry: true,
     throwOnError: (error, query) => {
-      //console.log('Error: ' + query.options.queryKey, { error, query });
+      //console.log('GRAPHQL','Error: ' + query.options.queryKey, { error, query });
       return false;
     },
     staleTime: refreshTime,

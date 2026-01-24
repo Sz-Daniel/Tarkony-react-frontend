@@ -1,20 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import { PriceHistoryResponseType } from '../api/types/Bitcoin/queryType';
-import { PriceHistoryChart } from '../components/recharts/PriceHistoryChart';
-import { useBitcoinFetch } from '../hooks/FetchCalls';
 import { Box, Grid, Paper, Button } from '@mui/material';
+import { useBitcoinFetch } from '../hooks_/FetchCalls';
+import { PriceHistoryChart } from '../components/recharts/PriceHistoryChart';
 
 export function Bitcoin() {
   const { data, isSuccess, isLoading, isError, error } = useBitcoinFetch();
-  const bitcoinDataList =
-    isSuccess && data ? (data as PriceHistoryResponseType[]) : undefined;
 
   const navigate = useNavigate();
   return (
     <>
       {isLoading && <div>Loading Bitcoin data...</div>}
       {isError && <div>Error loading data: {error.message}</div>}
-      {bitcoinDataList && (
+      {data && (
         <>
           <div> Bitcoin Data </div>
           <Box sx={{ p: 4 }}>
@@ -29,11 +26,10 @@ export function Bitcoin() {
               </Button>
             </Box>
             <Grid container>
-              {/* First section - Pic, Meta Info*/}
               <Grid size={12}>
                 <Paper elevation={3} sx={{ p: 2 }}>
                   <Box display="flex" flexDirection="row" alignItems="center">
-                    <PriceHistoryChart data={bitcoinDataList} />
+                    <PriceHistoryChart data={data} />
                   </Box>
                 </Paper>
               </Grid>

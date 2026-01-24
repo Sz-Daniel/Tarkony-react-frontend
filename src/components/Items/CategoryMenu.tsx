@@ -1,9 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { categoriesQuery } from '../../api/queries/itemsQuery';
+
 import { useEffect, useState } from 'react';
 import { Chip } from '@mui/material';
-import type { CategoryType } from '../../api/types/Items/queryType';
 import { useSelectedBulkCategoryLogic } from './categoryLogic';
+
+import { CategoriesData } from '../../api/types_/Items/queryType';
+import { categoriesQuery } from '../../api/queries/_';
 
 interface Props {
   selectedCategory: string[];
@@ -33,8 +35,8 @@ export function CategoryMenu(props: Props) {
 
   // Retrieves categories from the cache (source)
   const queryClient = useQueryClient();
-  const categoriesCache: CategoryType[] =
-    queryClient.getQueryData([categoriesQuery.name]) ?? [];
+  const categoriesCache: CategoriesData[] =
+    queryClient.getQueryData([categoriesQuery.cacheName]) ?? [];
 
   // Generates the complete category array for item display based on the selected category (uses custom hook)
   useSelectedBulkCategoryLogic({
@@ -53,7 +55,7 @@ export function CategoryMenu(props: Props) {
       if (selectedCheck) {
         // Cuts off the map entries beyond the found level to reflect upward navigation
         const slicedMap = new Map(
-          Array.from(categoryListShow.entries()).slice(0, index + 1)
+          Array.from(categoryListShow.entries()).slice(0, index + 1),
         );
         setCategoryListShow(slicedMap);
       }

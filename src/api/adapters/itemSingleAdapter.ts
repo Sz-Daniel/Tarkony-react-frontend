@@ -17,7 +17,7 @@ import {
   taskNeedCalc,
 } from './adapters';
 export function singleItemPricesAdapter(
-  data: SingleItemPricesQueryType
+  data: SingleItemPricesQueryType,
 ): SingleItemPricesResultType {
   const sellToList = sellToListCalc(data.sellFor);
   const buyFromList = buyFromListCalc(data.buyFor);
@@ -28,13 +28,13 @@ export function singleItemPricesAdapter(
   };
 }
 export function singleItemAdapter(
-  data: SingleItemQueryType
+  data: SingleItemQueryType,
 ): SingleItemResultType {
   const stats = statCalc(data);
   const statsNull = Object.values(stats).every((value) => value === null);
   const fleaPrice = fleaPriceCalc(data);
   const fleaPriceNull = Object.values(fleaPrice).every(
-    (value) => value === null
+    (value) => value === null,
   );
   const sellToList = sellToListCalc(data.sellFor);
   const buyFromList = buyFromListCalc(data.buyFor);
@@ -48,7 +48,7 @@ export function singleItemAdapter(
     id: data.id ?? '',
     name: data.name ?? '',
     shortName: data.shortName ?? '',
-    categories: data.categories.map((cat) => cat.name) ?? '',
+    category: data.categories.map((cat) => cat.name) ?? '',
 
     width: data.width ?? null,
     height: data.height ?? null,

@@ -80,6 +80,14 @@ export const singleItemQuery = (normalizedName: string = ''): QueryType => {
         }
       }
 
+      historicalPrices {
+        offerCount
+        offerCountMin
+        price
+        priceMin
+        timestamp
+      }
+
       bartersUsing {
         id
         level

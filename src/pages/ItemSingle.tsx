@@ -5,7 +5,6 @@ import {
   Typography,
   Chip,
   Paper,
-  CircularProgress,
   Table,
   TableBody,
   TableRow,
@@ -15,17 +14,16 @@ import {
   ListItemText,
   Button,
 } from '@mui/material';
-import { useSingleItemGraphQuery } from '../hooks/GraphCalls';
-import type {
-  FleaPrice,
-  SingleItemResultType,
-  Stats,
-} from '../api/types/ItemSingle/responseType';
+
 import { Combination } from '../components/ui/Combination';
-import { ErrorOverlay } from '../components/ui/Status';
-import { useMemo } from 'react';
 import { useTabsLogic } from '../components/Items/Tabs';
-import { Skeleton } from '../components/ui/skeletons/Skeleton';
+import { useItemSingleFetch } from '../hooks_/FetchCalls';
+import {
+  FleaPrice,
+  ItemSingleResponse,
+  Stats,
+} from '../api/types_/ItemSingle/responseType';
+import { PriceHistoryChart } from '../components/recharts/PriceHistoryChart';
 
 type Params = {
   normalizeName: string;
@@ -35,18 +33,16 @@ export function ItemSingle() {
   const navigate = useNavigate();
 
   const { normalizeName = '' } = useParams<Params>();
+
+  //const { data, isSuccess, isLoading, isError, error } =useSingleItemGraphQuery(normalizeName);
+  //useSingleItemFetch
+
   const { data, isSuccess, isLoading, isError, error } =
-    useSingleItemGraphQuery(normalizeName);
-  const item = isSuccess && data ? (data as SingleItemResultType) : null;
+    useItemSingleFetch(normalizeName);
+  const item = isSuccess && data ? (data as ItemSingleResponse) : null;
 
   // This section validates the data:
   // For crafting and barter, if there are identical items in the input and output, only one instance should be shown.
-  {
-    isError && <ErrorOverlay message={error.message} />;
-  }
-  {
-    isLoading && <Skeleton component="ItemDetail" />;
-  }
 
   const { craft, barter, tasks } = useTabsLogic({
     craftInput: item?.craftInput ?? [],
@@ -59,6 +55,8 @@ export function ItemSingle() {
 
   return (
     <>
+      {isLoading && <div>Loading Bitcoin data...</div>}
+      {isError && <div>Error loading data: {error.message}</div>}
       {item && (
         <Box sx={{ p: 4 }}>
           <Box sx={{ p: 2 }}>
@@ -98,7 +96,7 @@ export function ItemSingle() {
                       sx={{ mt: 1 }}
                     />
                     <Box sx={{ m: 2 }}>
-                      {item.categories.map((cat, idx) => (
+                      {item.category.map((cat, idx) => (
                         <Chip key={idx} label={cat} sx={{ mt: 1 }} />
                       ))}
                     </Box>
@@ -185,8 +183,8 @@ export function ItemSingle() {
                           ${
                             entry.playertoTraderRequirements.traderName
                           }: ${entry.price.toLocaleString()} ${
-                              entry.priceCurrency
-                            }
+                            entry.priceCurrency
+                          }
                         `}
                             secondary={
                               entry.limit ||
@@ -215,6 +213,36 @@ export function ItemSingle() {
               </Paper>
             </Grid>
 
+            {/* Historical Price */}
+            <Grid size={12}>
+              <Paper elevation={3} sx={{ p: 2 }}>
+                <Box
+                  display={'flex'}
+                  flexDirection={'row'}
+                  alignItems={'baseline'}
+                >
+                  <Box sx={{ flex: 1 }}>
+                    <Typography variant="h6" gutterBottom>
+                      Historical Price
+                    </Typography>
+                    <Grid container>
+                      {/* First section - Pic, Meta Info*/}
+                      <Grid size={12}>
+                        <Paper elevation={3} sx={{ p: 2 }}>
+                          <Box
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="center"
+                          >
+                            <PriceHistoryChart data={item.historicalPrices} />
+                          </Box>
+                        </Paper>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Box>
+              </Paper>
+            </Grid>
             {/* Crafting section */}
             {craft && craft.length !== 0 && (
               <Grid size={12}>
@@ -228,7 +256,7 @@ export function ItemSingle() {
                       .filter(
                         (c) =>
                           c.stationRequirement !== null &&
-                          c.questRequirement !== null
+                          c.questRequirement !== null,
                       )
                       .map((craft, i) => {
                         return (
@@ -312,6 +340,7 @@ export function ItemSingle() {
     </>
   );
 }
+
 type FleaInfoComponentProps = {
   flea: FleaPrice;
 };

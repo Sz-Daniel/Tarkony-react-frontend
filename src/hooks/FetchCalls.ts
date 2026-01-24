@@ -1,3 +1,5 @@
+//Elsődlegesen a Backend elérhetőséget használja
+
 import {
   useBitcoinGraphQuery,
   useCategoryGraphQuery,
@@ -10,7 +12,6 @@ import {
   useItemDetailRestQuery,
 } from './RestCalls';
 
-//Elsődlegesen a Backend elérhetőséget használja
 //de ha nem elérhető átvált a forrás API-ra
 export function useCategoryFetch() {
   const RestFetch = useCategoryRestQuery();
