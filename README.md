@@ -4,7 +4,7 @@
 
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
-Tarkony backend source offline
+Tarkony backend source offline.
 
 # HR section
 
