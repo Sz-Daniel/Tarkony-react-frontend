@@ -7,7 +7,7 @@ const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
 export function useFetchRestIntoCache<TQuery>(
   apiUrl: string,
   cacheName: string,
-  refreshTime = STALE_TIME_WEEKLY
+  refreshTime = STALE_TIME_WEEKLY,
 ) {
   return useQuery({
     queryKey: [cacheName],
@@ -30,6 +30,7 @@ export function useFetchRestIntoCache<TQuery>(
 //Axios setup for GET, only-one type what we need
 export async function fetchRest(endpoint: string) {
   try {
+    console.info('Backend', import.meta.env.VITE_BACKEND_URL);
     const response = await restClient.get(endpoint); // relatív útvonal
     if (response.data.errors) {
       throw new Error(JSON.stringify(response.data.errors));
