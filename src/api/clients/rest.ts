@@ -5,7 +5,9 @@ export async function axiosRest<TDisplay>(endpoint: string) {
   try {
     if (
       import.meta.env.VITE_BACKEND_URL === 'offline' ||
-      endpoint === 'empty'
+      !import.meta.env.VITE_BACKEND_URL ||
+      endpoint === 'empty' ||
+      !endpoint
     ) {
       console.info(
         'There is no active backend server with REST API connection.\nSwitching to origin with GraphQL.',

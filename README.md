@@ -4,7 +4,7 @@
 
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
-Tarkony backend source offline
+Tarkony backend source online [Git](https://github.com/Sz-Daniel/Tarkony-aspdotnet-backend/)
 
 # HR section
 
@@ -18,9 +18,15 @@ Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API, Recharts
 
 An ongoing frontend feature that displays historical Bitcoin price movements from a video game dataset on a dedicated `/bitcoin` page, using Recharts for data visualization.
 
-### Done: Data loading optimalization
+### Data loading optimalization
 
-The goal is to ensure long‑term data availability on the client side using local database as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source becomes unreachable. In such cases, the system falls back to the original third‑party data source and handles it on the client side in a way that preserves normal behavior, so the user does not notice any difference.
+#### Done: Stage 1
+
+In such cases, the system falls back to the original third‑party data source and handles it on the client side in a way that preserves normal behavior, so the user does not notice any difference.
+
+#### In Progress: Stage 2
+
+The goal is to ensure long‑term data availability on the client side using local database as the primary storage, so data rendering remains as fast as possible and reliably accessible over time. It must also guarantee that the data remains available even if the direct backend data source becomes unreachable.
 
 ### Next: Mobile-first responsive design optimalization
 
@@ -62,6 +68,7 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Done:
 
+- I researched best practice naming conventions and revised the type names accordingly. Third-party data source `Origin`. Own backend `Internal`. Data derived from these Data Transfer Object `DTO` - Data to be used directly within DTO `Data`. Data to be displayed `Display`
 - Improved query logic within one UseQuery, now checks the availability of the REST API server. If the server is unavailable, it automatically switches to a third-party GraphQL API.
 - Implemented Recharts to show the price history of every item. Created a separate page for Bitcoin.
 - The primary data source for the application is its own backend, which automatically reverts to the original data source in case of an error - separated fetch calls.
@@ -74,12 +81,18 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Next:
 
-#### Data load optimalization
+#### Data load optimalization - Stage 2
 
 - IndexedDB implementation for main source data loading
 - Backend DB load directly into IndexedDB
 - Query load ItemBase ( From Backend / thirdparty API ) while the whole db loading into IndexedDB
 - Backend Offline Fallback pipeline: continuously checks backend status, loads legacy data into Query cache, and if the backend remains offline, transfers the data from Query cache into IndexedDB. The end result matches normal operation
+
+#### Mobile Responsiveness
+
+- Adjust icon size (resize or crop if needed)
+- Align text to fit within screen dimensions
+- Stack detail elements vertically for better readability
 
 #### Loading skeleton to main page
 
@@ -93,12 +106,6 @@ The legacy system retrieved and processed data directly from a third‑party API
 - Armors
 - Barter
 - Junk
-
-#### Mobile Responsiveness
-
-- Adjust icon size (resize or crop if needed)
-- Align text to fit within screen dimensions
-- Stack detail elements vertically for better readability
 
 #### Mod:
 
@@ -162,23 +169,31 @@ Tarkony
 │   │   │   ├── itemsAdapter.ts
 │   │   │   ├── ItemSingleAdapter.ts
 │   │   │   └── worthAdapter.ts
-│   │   ├── hooks/
-│   │   │   └── APICalls.ts
+│   │   ├── clients/
+│   │   │   ├── axios.ts
+│   │   │   ├── fetch.ts
+│   │   │   ├── graphql.ts
+│   │   │   └── rest.ts
 │   │   ├── old/
 │   │   ├── queries/
+│   │   │   ├── bitcoinQuery.ts
 │   │   │   ├── itemSingleQuery.ts
 │   │   │   ├── itemsQuery.ts
+│   │   │   ├── modQuery.ts
 │   │   │   └── worthQuery.ts
 │   │   ├── types/
 │   │   │   ├── ItemSingle/
+│   │   │   │   └── queryType.ts
+│   │   │   ├── ItemSingle/
 │   │   │   │   ├── queryTyoe.ts
 │   │   │   │   └── responseType.ts
-│   │   │   ├── items/
+│   │   │   ├── Items/
 │   │   │   │   ├── queryTyoe.ts
 │   │   │   │   └── responseType.ts
-│   │   │   └── worth/
-│   │   │       ├── queryTyoe.ts
-│   │   │       └── responseType.ts
+│   │   │   ├── Worth/
+│   │   │   │   ├── queryTyoe.ts
+│   │   │   │   └── responseType.ts
+│   │   │   └── type.ts
 │   │   └── apiClient.ts
 │   ├── components/
 │   │   ├── Items/
@@ -190,6 +205,8 @@ Tarkony
 │   │   ├── layout/
 │   │   │   ├── Layout.tsx
 │   │   │   └── Footer.tsx
+│   │   ├── recharts/
+│   │   │   └── PriceHistoryChart.tsx
 │   │   └── ui/
 │   │       ├── skeletons
 │   │       │   ├── skeleton.css
@@ -200,6 +217,8 @@ Tarkony
 │   │       ├── Tabs.tsx
 │   │       ├── Status.tsx
 │   │       └── SearchBar.tsx
+│   ├── hooks/
+│   │   └── FetchCalls.tsx
 │   ├── pages/
 │   │   ├── Items.tsx
 │   │   └── ItemSingle.tsx
@@ -216,16 +235,44 @@ Tarkony
 There are (and will be) a lot of features intentionally accessible in multiple ways throughout the site. This is not the result of a flawed UI/UX design concept, but rather a deliberate decision for practice purposes. The goal is to experiment with different display approaches—how to create them, how to manage them.
 For example, this includes both a single-page application (SPA) structure and in-page popup components that can be closed or moved around by clicking and dragging.
 
-## Key Modules
+# Key Modules
 
 ## Routing
 
 '/' -> Items.tsx
+
 '/item/normalizedName' -> ItemSingle.tsx
+
+'/bitcoin' -> Bitcoin.tsx
 
 ## Fetching
 
-### `graphQLClient.ts` + `itemSingleQuery.ts` + `itemsQuery.ts`
+#### Fallback rework
+
+With the previous Fallbach mechanism, both fetches had to be run, which only slowed things down, only data security was resolved.
+So I had to create a direct fallback mechanism. When fetching REST, it checks before fetching whether the backend access are specified in the environment variable and endpoint by the query. This is ensured by an early return throw mechanism, and if it is not present, the try/catch mechanism within useQuery - queryFn ensures that the catch block provides the fallback to the Origin GraphQL fetch, which will be guaranteed in all cases.
+This process ensures that only the backend or Origin is called, thus guaranteeing speed and data security in all cases.
+
+### Deprecated
+
+#### Hook FallBack Mechanism
+
+Separate use<ComponentType>GraphQLFetch() and separate use<ComponentType>RestFetch(), and whichever one returns successful data will be returned.
+
+```js
+export function useCategoryFetch() {
+  const RestFetch = useCategoryRestQuery();
+  const QueryFetch = useCategoryGraphQuery();
+  if (RestFetch.isError) return QueryFetch;
+  return RestFetch;
+}
+```
+
+#### REST API
+
+After creating a minimal API server that provided only the necessary data via REST API - thus avoiding OriginAPI load and conversion after fetching—it became even faster at the target data level.
+
+#### `graphQLClient.ts` + `itemSingleQuery.ts` + `itemsQuery.ts`
 
 This module manages GraphQL request logic using Axios, integrating with useQuery to fetch pre-defined queries via custom hooks.
 In progress: developing a standalone asynchronous fetch function (fetchQuery), not tied to React hooks.
@@ -240,30 +287,34 @@ This way, it won’t be necessary to repeatedly call a function just to display 
 
 I’m fully aware that GraphQL is not the most commonly used API handling method in all contexts, but the current API data source I’m working with uses it. I also plan to create an alternative REST API query, purely as a mockup—it won’t actually function.
 
-### `APICalls.ts`
+#### `APICalls.ts`
 
 For direct usage, parameterized custom hooks from graphQLClient.ts are available as single query hook functions. In the comments, there is a pattern used to perform type checking in cases when a queryFetch is executed via the wrappers.
 
-### `_Query.ts`
+#### `_Query.ts`
 
 Contains the GraphQL Query for the given page.
 The name is used as the cache key, and the key is the object name from which the direct response is extracted in `useFetchIntoCache` so the result is always a single array. The Query itself is also stored here.
 
 Every query, query type, adapter, and response type is separated either by name or by folder, depending on which page it is used in.
 
-### `queryType.ts`
+#### `queryType.ts`
 
 GraphQL API raw data type
 
-### `_Adapter.ts`
+#### `_Adapter.ts`
 
 Contains functions used during fetch that transform types from `queryType.ts` to `responseType.ts`.
 
-### `responseType.ts`
+#### `responseType.ts`
 
 Target type structures after adapter processing of GraphQL API call.
 
 ## Components
+
+### `PriceHistoryChart.tsx`
+
+The Componets Rechart feature displays price changes over the last two days, as well as the minimum and average prices.
 
 ### `CategoryMenu.tsx` + `categoryLogic.ts`
 
