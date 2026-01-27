@@ -12,9 +12,10 @@ Tarkony backend source online [Git](https://github.com/Sz-Daniel/Tarkony-aspdotn
 
 In this project, I am enhancing my frontend skills (React/TypeScript) by creating a system-level frontend that quickly delivers video game item data through a responsive, data-driven UI built on a clear, well-structured model.
 
-Tech stack: React, Typescript, TanstackQuery, REST API, GraphQL API, Recharts
+Tech stack: React, Typescript, React Query (Tanstack Query), Material UI, REST API, GraphQL API, Recharts
+Core Competencies: State Management, API Architectures, Data Visualization, Clean Code, Design Patterns, Design (S.O.L.I.D.) Principles, Performance Optimization, UX Features, Documentation, Version Control
 
-### Done: Bitcoin Price History Visualization
+### Done: Bitcoin Price History Visualization - Recharts
 
 An ongoing frontend feature that displays historical Bitcoin price movements from a video game dataset on a dedicated `/bitcoin` page, using Recharts for data visualization.
 
@@ -68,7 +69,7 @@ The legacy system retrieved and processed data directly from a third‑party API
 
 ### Done:
 
-- I researched best practice naming conventions and revised the type names accordingly. Third-party data source `Origin`. Own backend `Internal`. Data derived from these Data Transfer Object `DTO` - Data to be used directly within DTO `Data`. Data to be displayed `Display`
+- I researched best practice naming conventions and revised the type names accordingly. Third-party data source `Origin`. Own backend `Internal`. Data derived from these Data Transfer Object `DTO` - Data to be used directly within `DTOData`. Data to be displayed `Display`
 - Improved query logic within one UseQuery, now checks the availability of the REST API server. If the server is unavailable, it automatically switches to a third-party GraphQL API.
 - Implemented Recharts to show the price history of every item. Created a separate page for Bitcoin.
 - The primary data source for the application is its own backend, which automatically reverts to the original data source in case of an error - separated fetch calls.
@@ -88,11 +89,15 @@ The legacy system retrieved and processed data directly from a third‑party API
 - Query load ItemBase ( From Backend / thirdparty API ) while the whole db loading into IndexedDB
 - Backend Offline Fallback pipeline: continuously checks backend status, loads legacy data into Query cache, and if the backend remains offline, transfers the data from Query cache into IndexedDB. The end result matches normal operation
 
+##### Storage & Persistence, Offline First Approach
+
 #### Mobile Responsiveness
 
 - Adjust icon size (resize or crop if needed)
 - Align text to fit within screen dimensions
 - Stack detail elements vertically for better readability
+
+##### Responsive Web Design
 
 #### Loading skeleton to main page
 

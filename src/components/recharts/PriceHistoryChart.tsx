@@ -39,7 +39,6 @@ export function PriceHistoryChart({ data }: Params) {
           content={({ label, payload }) => {
             if (!payload || !payload.length) return null;
 
-            //const row: HistoricalPrices = payload[0].payload; // ← teljes rekord
             const row = payload[0].payload as HistoricalPrices;
             return (
               <div
