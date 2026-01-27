@@ -53,7 +53,12 @@ export function PriceHistoryChart({ data }: Params) {
                 <p>Price: {row.price}</p>
                 <p>Price Min: {row.priceMin}</p>
                 <p>
-                  Date: {new Date(Number(row.timestamp)).toLocaleDateString()}
+                  Date:{' '}
+                  {new Date(Number(row.timestamp)).toLocaleString('en-us', {
+                    weekday: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
                 </p>
                 <p>Offer Count: {row.offerCount}</p>
                 <p>Offer Count Min: {row.offerCountMin}</p>
