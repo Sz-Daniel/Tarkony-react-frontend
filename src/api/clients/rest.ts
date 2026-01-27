@@ -8,7 +8,7 @@ export async function axiosRest<TDisplay>(endpoint: string) {
       endpoint === 'empty'
     ) {
       console.info(
-        'There is no active backend server with REST API connection.\n Switching to legacy with GraphQL.',
+        'There is no active backend server with REST API connection.\nSwitching to origin with GraphQL.',
       );
       throw new Error('Server Offline');
     }
