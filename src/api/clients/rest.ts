@@ -1,7 +1,6 @@
 import { restClient } from './axios';
-
-//Axios setup with GET for REST API with endpoint
-export async function axiosRest<TDisplay>(endpoint: string) {
+//Axios setup for GET, only-one type what we need
+export async function fetchRest(endpoint: string) {
   try {
     if (
       import.meta.env.VITE_BACKEND_URL === 'offline' ||
