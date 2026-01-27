@@ -1,9 +1,37 @@
-export type CategoryType = BaseType & {
+//Queries
+export type ItemCategoriesDTO = {
+  data: {
+    itemCategories: CategoriesData;
+  };
+};
+
+export type ItemBaseDTO = {
+  data: {
+    items: ItemBaseData[];
+  };
+};
+
+export type ItemDetailDTO = {
+  data: {
+    items: ItemDetailData;
+  };
+};
+
+export type SearchNameListDTO = {
+  id: string;
+  name: string;
+};
+
+//Data
+export type CategoriesData = {
+  id: string;
+  name: string;
+  normalizedName: string;
   children: normalizedName[];
   parent: normalizedName;
 };
 
-export type ItemBaseQueryType = {
+export type ItemBaseData = {
   id: string;
 
   name: string;
@@ -14,14 +42,14 @@ export type ItemBaseQueryType = {
 
   changeLast48hPercent: number;
 
-  sellFor: traderForType[];
+  sellFor: traderFor[];
 
-  buyFor: traderForType[];
+  buyFor: traderFor[];
 
   category: normalizedName;
 };
 
-export type ItemDetailQueryType = {
+export type ItemDetailData = {
   id: string;
 
   name: string;
@@ -46,6 +74,8 @@ export type ItemDetailQueryType = {
 
   receivedFromTasks: ReceivedFromTask[];
 };
+
+//Fragments
 export type ReceivedFromTask = {
   name: string;
   finishRewards: FinishRewards;
@@ -181,6 +211,11 @@ type itemIcon = {
 
 type normalizedName = {
   normalizedName: string;
+};
+
+type traderFor = {
+  priceRUB: number;
+  vendor: name;
 };
 
 type name = {

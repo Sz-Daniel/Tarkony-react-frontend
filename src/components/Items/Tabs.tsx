@@ -6,8 +6,7 @@ import {
   Craft,
   TaskGive,
   TaskNeed,
-} from '../../api/types_/Items/responseType';
-//import type {Barter,Craft,TaskGive,TaskNeed,} from '../../../../../../junk/20260122/HE/api_/types__/Items/responseType';
+} from '../../api/types/Items/responseType';
 
 interface TabPanelProps {
   children?: React.ReactNode;

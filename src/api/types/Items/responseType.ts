@@ -1,4 +1,5 @@
-export type ItemBaseResultType = {
+//Response
+export type ItemBaseDisplay = {
   id: string;
   name: string;
   iconURL: string;
@@ -9,7 +10,7 @@ export type ItemBaseResultType = {
   category: string;
 };
 
-export type ItemDetailResultType = {
+export type ItemDetailDisplay = {
   id: string | null;
 
   name: string;
@@ -34,10 +35,13 @@ export type ItemDetailResultType = {
 
   taskGive: TaskGive[] | null;
 };
+
+//Fragments
 export type TaskGive = {
   name: string;
   reward: TaskItem[] | null;
 };
+
 export type TaskNeed = {
   name: string;
   task: Task[] | null;

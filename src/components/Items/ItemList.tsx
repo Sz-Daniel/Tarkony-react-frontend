@@ -16,9 +16,8 @@ import { SearchBar } from '../ui/SeachBar';
 import { Item } from '../../themes/themes';
 
 import { useNavigate } from 'react-router-dom';
-
-import { ItemBaseResponse } from '../../api/types_/Items/responseType';
-import { itemBaseQuery } from '../../api/queries/_';
+import { ItemBaseDisplay } from '../../api/types/Items/responseType';
+import { itemBaseQuery } from '../../api/queries/itemsQuery';
 
 type ItemListProps = {
   selectedCategory: string[];
@@ -33,7 +32,7 @@ export function ItemList({
   //paginator
   const [page, setPage] = useState(1);
   // Full item list that will be filtered in useEffect based on selectedCategory and searchedName
-  const [showItem, setShowItem] = useState<ItemBaseResponse[]>([]);
+  const [showItem, setShowItem] = useState<ItemBaseDisplay[]>([]);
   // setSearchedName is updated via SearchBar
   const [searchedName, setSearchedName] = useState<string>('');
   // itemDetails - accordionHandleChange
@@ -43,7 +42,7 @@ export function ItemList({
 
   // Retrieves cached data using useCategoryGraphQuery()
   const queryClient = useQueryClient();
-  const itemBaseListCache: ItemBaseResponse[] =
+  const itemBaseListCache: ItemBaseDisplay[] =
     queryClient.getQueryData([itemBaseQuery.cacheName]) ?? [];
 
   // Filters the displayed item list by category and searchedName
@@ -69,7 +68,7 @@ export function ItemList({
   const accordionHandleChange =
     (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
-      setSelectedItem(isExpanded ? panel : ''); // csak nyitáskor állítjuk be
+      setSelectedItem(isExpanded ? panel : '');
     };
 
   //Pageinated
@@ -97,14 +96,14 @@ export function ItemList({
           Bitcoin price
         </Button>
       </Box>
-      {paginatedItems.map((item: ItemBaseResponse) => (
+      {paginatedItems.map((item: ItemBaseDisplay) => (
         <Accordion
           key={item.id}
           expanded={selectedItem === item.id}
           onChange={accordionHandleChange(item.id)}
         >
           {/* The TSX component using React.memo is located at the end of this file, wrapping AccordionSummary.*/}
-          <ItemBaseDisplay item={item} />
+          <ItemBaseView item={item} />
 
           {/*The related TSX component for AccordionDetails can be found in ItemDetail.*/}
           {selectedItem === item.id && <ItemDetailDisplay itemId={item.id} />}
@@ -126,10 +125,10 @@ export function ItemList({
  * However, filtering and/or searching by name can trigger re-rendering.
  * ItemDetailDisplay itself does not require memoization.
  */
-type ItemBaseDisplayProps = {
-  item: ItemBaseResponse;
+type ItemBaseViewProps = {
+  item: ItemBaseDisplay;
 };
-const ItemBaseDisplay = memo(({ item }: ItemBaseDisplayProps) => {
+const ItemBaseView = memo(({ item }: ItemBaseViewProps) => {
   return (
     <>
       <AccordionSummary

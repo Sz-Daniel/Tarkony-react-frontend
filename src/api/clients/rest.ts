@@ -1,36 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { restClient } from './axios';
 
-const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
-
-export function useFetchRestIntoCache<TQuery>(
-  apiUrl: string,
-  cacheName: string,
-  refreshTime = STALE_TIME_WEEKLY,
-) {
-  return useQuery({
-    queryKey: [cacheName],
-    queryFn: async () => {
-      const raw = await fetchRest(apiUrl);
-      const useableField = raw as TQuery;
-      console.log('Rest', 'Result:' + ' useFetchRestIntoCache', useableField);
-      const obj = useableField;
-      return obj;
-    },
-    retry: true,
-    throwOnError: (error, query) => {
-      //console.log('GRAPHQL','Error: ' + query.options.queryKey, { error, query });
-      return false;
-    },
-    staleTime: refreshTime,
-  });
-}
-
-//Axios setup for GET, only-one type what we need
-export async function fetchRest(endpoint: string) {
+//Axios setup with GET for REST API with endpoint
+export async function axiosRest<TDisplay>(endpoint: string) {
   try {
-    const response = await restClient.get(endpoint); // relatív útvonal
+    if (
+      import.meta.env.VITE_BACKEND_URL === 'offline' ||
+      endpoint === 'empty'
+    ) {
+      console.info(
+        'There is no active backend server with REST API connection.\n Switching to legacy with GraphQL.',
+      );
+      throw new Error('Server Offline');
+    }
+    const response = await restClient.get(endpoint);
     if (response.data.errors) {
       throw new Error(JSON.stringify(response.data.errors));
     }

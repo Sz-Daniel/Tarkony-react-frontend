@@ -1,3 +1,6 @@
+import { HistoricalPrices } from '../type';
+
+//????
 export type SingleItemPricesQueryType = {
   id: string;
 
@@ -5,8 +8,15 @@ export type SingleItemPricesQueryType = {
 
   buyFor: BuyFor[];
 };
+//Query
+export type ItemSingleDTO = {
+  data: {
+    items: ItemSingleData[];
+  };
+};
 
-export type SingleItemQueryType = {
+//Data
+export type ItemSingleData = {
   id: string;
   name: string;
   shortName: string;
@@ -44,6 +54,8 @@ export type SingleItemQueryType = {
 
   buyFor: BuyFor[];
 
+  historicalPrices: HistoricalPrices[];
+
   bartersUsing: BartersUsing[];
 
   bartersFor: BartersFor[];
@@ -56,6 +68,7 @@ export type SingleItemQueryType = {
 
   receivedFromTasks: ReceivedFromTask[];
 };
+//type HistoricalPrices
 
 export type ReceivedFromTask = {
   name: string;

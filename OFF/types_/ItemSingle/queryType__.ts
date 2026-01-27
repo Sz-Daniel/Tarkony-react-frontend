@@ -1,57 +1,44 @@
-//Queries
-export type ItemCategoriesQuery = {
-  data: {
-    itemCategories: CategoriesData;
-  };
-};
-
-export type ItemBaseQuery = {
-  data: {
-    items: ItemBaseData[];
-  };
-};
-
-export type ItemDetailQuery = {
-  data: {
-    items: ItemDetailData;
-  };
-};
-
-//Data
-export type CategoriesData = {
-  id: string;
-  name: string;
-  normalizedName: string;
-  children: normalizedName[];
-  parent: normalizedName;
-};
-
-export type ItemBaseData = {
+export type SingleItemPricesQueryType = {
   id: string;
 
-  name: string;
+  sellFor: SellFor[];
 
+  buyFor: BuyFor[];
+};
+
+export type SingleItemQueryType = {
+  id: string;
+  name: string;
+  shortName: string;
+  categories: name[];
+
+  lastLowPrice: number;
+  low24hPrice: number;
+  avg24hPrice: number;
+  high24hPrice: number;
+  changeLast48hPercent: number;
+  changeLast48h: number;
+  lastOfferCount: number;
+
+  width: number;
+  weight: number;
+  hasGrid: number;
+
+  inspectImageLink: string;
+  backgroundColor: string;
   gridImageLink: string;
 
-  changeLast48h: number;
-
-  changeLast48hPercent: number;
-
-  sellFor: traderFor[];
-
-  buyFor: traderFor[];
-
-  category: normalizedName;
-};
-
-export type ItemDetailData = {
-  id: string;
-
-  name: string;
-
-  normalizedName: string;
-
+  description: string;
   wikiLink: string;
+
+  height: number;
+  velocity: number;
+  recoilModifier: number;
+  loudness: number;
+  accuracyModifier: number;
+  ergonomicsModifier: number;
+
+  updated: string;
 
   sellFor: SellFor[];
 
@@ -70,7 +57,6 @@ export type ItemDetailData = {
   receivedFromTasks: ReceivedFromTask[];
 };
 
-//Fragments
 export type ReceivedFromTask = {
   name: string;
   finishRewards: FinishRewards;
@@ -206,11 +192,6 @@ type itemIcon = {
 
 type normalizedName = {
   normalizedName: string;
-};
-
-type traderFor = {
-  priceRUB: number;
-  vendor: name;
 };
 
 type name = {

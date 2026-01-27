@@ -1,10 +1,10 @@
-import { QueryType } from '../types/type';
-
-export const singleItemQuery = (normalizedName: string = ''): QueryType => {
+import { Query } from '../types/type';
+export const itemSingleQuery = (normalizedName: string = ''): Query => {
   return {
-    name: `singleItemQuery-${normalizedName}`,
-    key: 'item',
-    query: `  
+    cacheName: `singleItemQuery-${normalizedName}`,
+    restURL: `empty`,
+    graphqlField: 'item',
+    graphqlQuery: `  
     query {
         item(normalizedName: "${normalizedName}") {
 
@@ -245,32 +245,6 @@ export const singleItemQuery = (normalizedName: string = ''): QueryType => {
       }
     }
 }
-    `,
-  };
-};
-
-export const singleItemPricesQuery = (id: string = ''): QueryType => {
-  return {
-    name: `singleItemPricesQuery-${id}`,
-    key: 'item',
-    query: `  
-    query {
-        item(id: "${id}") {
-          id
-          sellFor{ 
-            priceRUB
-            vendor{
-              name
-            }
-          }
-          buyFor {
-            priceRUB
-            vendor {
-              name
-            }
-          }
-        }
-    }
     `,
   };
 };

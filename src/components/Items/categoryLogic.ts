@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { CategoriesData } from '../../api/types_/Items/queryType';
+import { CategoriesData } from '../../api/types/Items/queryType';
 
 type Props = {
   selected: string;

@@ -1,4 +1,5 @@
-import { Query } from '../types_/type';
+/*
+import { Query } from '../types/type';
 
 export const categoriesQuery = {
   cacheName: 'categoriesQuery',
@@ -525,3 +526,5 @@ export const bitcoinQuery = {
   }
 }`,
 };
+
+*/

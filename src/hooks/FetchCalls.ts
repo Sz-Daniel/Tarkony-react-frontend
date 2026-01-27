@@ -1,54 +1,58 @@
-//Elsődlegesen a Backend elérhetőséget használja
+import { useFetchtoCache } from '../api/clients/fetch';
 
+// Categories
+import { categoriesQuery } from '../api/queries/itemsQuery';
 import {
-  useBitcoinGraphQuery,
-  useCategoryGraphQuery,
-  useItemBaseListGraphQuery,
-  useItemDetailGraphQuery,
-} from './GraphCalls';
-import {
-  useCategoryRestQuery,
-  useItemBaseListRestQuery,
-  useItemDetailRestQuery,
-} from './RestCalls';
-
-//de ha nem elérhető átvált a forrás API-ra
+  CategoriesData,
+  ItemCategoriesDTO,
+} from '../api/types/Items/queryType';
 export function useCategoryFetch() {
-  const RestFetch = useCategoryRestQuery();
-  const QueryFetch = useCategoryGraphQuery();
-  if (RestFetch.isError) return QueryFetch;
-  return RestFetch;
+  return useFetchtoCache<ItemCategoriesDTO, CategoriesData>(categoriesQuery);
 }
 
+//ItemBase
+import { itemBaseQuery } from '../api/queries/itemsQuery';
+import { ItemBaseData, ItemBaseDTO } from '../api/types/Items/queryType';
+import { itemBaseAdapter } from '../api/adapters/itemsAdapter';
+import { ItemBaseDisplay } from '../api/types/Items/responseType';
 export function useItemBaseListFetch() {
-  const RestFetch = useItemBaseListRestQuery();
-  const QueryFetch = useItemBaseListGraphQuery();
-  if (RestFetch.isError) return QueryFetch;
-  return RestFetch;
+  return useFetchtoCache<ItemBaseDTO, ItemBaseData[], ItemBaseDisplay[]>(
+    itemBaseQuery,
+    itemBaseAdapter,
+  );
 }
 
-//useItemDetailGraphQuery(itemId);
+//ItemDetails
+import { itemDetailsQuery } from '../api/queries/itemsQuery';
+import { ItemDetailData, ItemDetailDTO } from '../api/types/Items/queryType';
+import { itemDetailsAdapter } from '../api/adapters/itemsAdapter';
+import { ItemDetailDisplay } from '../api/types/Items/responseType';
 export function useItemDetailFetch(itemId: string) {
-  const RestFetch = useItemDetailRestQuery(itemId);
-  const QueryFetch = useItemDetailGraphQuery(itemId);
-  if (RestFetch.isError) return QueryFetch;
-  return RestFetch;
+  return useFetchtoCache<ItemDetailDTO, ItemDetailData, ItemDetailDisplay>(
+    itemDetailsQuery(itemId),
+    itemDetailsAdapter,
+  );
 }
 
-export function useSingleItemFetch() {
-  const RestFetch = useItemBaseListRestQuery();
-  const QueryFetch = useItemBaseListGraphQuery();
-  if (RestFetch.isError) return QueryFetch;
-  return RestFetch;
+//ItemSingle
+import { itemSingleQuery } from '../api/queries/itemSingleQuery';
+import {
+  ItemSingleData,
+  ItemSingleDTO,
+} from '../api/types/ItemSingle/queryType';
+import { itemSingleAdapter } from '../api/adapters/itemSingleAdapter';
+import { ItemSingleDisplay } from '../api/types/ItemSingle/responseType';
+export function useItemSingleFetch(normalizedName: string) {
+  return useFetchtoCache<ItemSingleDTO, ItemSingleData, ItemSingleDisplay>(
+    itemSingleQuery(normalizedName),
+    itemSingleAdapter,
+  );
 }
 
+// Bitcoin
+import { bitcoinQuery } from '../api/queries/bitcoinQuery';
+import { HistoricalPricesDTO } from '../api/types/Bitcoin/queryType';
+import { HistoricalPrices } from '../api/types/type';
 export function useBitcoinFetch() {
-  /**
-  const RestFetch = useItemBaseListRestQuery();
-  const QueryFetch = useBitcoinGraphQuery();
-  if (RestFetch.isError) return QueryFetch;
-  return RestFetch;
- */
-  const QueryFetch = useBitcoinGraphQuery();
-  return QueryFetch;
+  return useFetchtoCache<HistoricalPricesDTO, HistoricalPrices[]>(bitcoinQuery);
 }

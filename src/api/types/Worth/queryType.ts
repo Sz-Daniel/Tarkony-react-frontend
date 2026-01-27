@@ -1,9 +1,9 @@
-export type WorthNameListQueryType = {
+export type WorthNameListDTOData = {
   id: string;
   name: string;
 };
 
-export type WorthItemMetaQueryType = {
+export type WorthItemMetaDTOData = {
   id: string;
   name: string;
   shortName: string;

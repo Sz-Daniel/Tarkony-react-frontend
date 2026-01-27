@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-//Initalize Axios client
 export const graphClient = axios.create({
   baseURL: 'https://api.tarkov.dev/graphql',
   headers: {

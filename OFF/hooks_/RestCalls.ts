@@ -1,9 +1,10 @@
+/*
 import { useFetchRestIntoCache } from '../api/clients/rest';
-import { CategoryType } from '../api/types/Items/queryType';
+import { CategoryType } from '../api/types_/Items/queryType__';
 import {
   ItemBaseResultType,
   ItemDetailResultType,
-} from '../api/types/Items/responseType';
+} from '../api/types_/Items/responseType__';
 
 //param for weekly-daily etc
 const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;

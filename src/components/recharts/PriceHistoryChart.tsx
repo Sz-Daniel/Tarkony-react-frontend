@@ -8,7 +8,7 @@ import {
   YAxis,
 } from 'recharts';
 
-import { HistoricalPrices } from '../../api/types_/type';
+import { HistoricalPrices } from '../../api/types/type';
 
 //Helyett
 type Params = {

@@ -17,12 +17,8 @@ import {
 
 import { Combination } from '../components/ui/Combination';
 import { useTabsLogic } from '../components/Items/Tabs';
-import { useItemSingleFetch } from '../hooks_/FetchCalls';
-import {
-  FleaPrice,
-  ItemSingleResponse,
-  Stats,
-} from '../api/types_/ItemSingle/responseType';
+import { useItemSingleFetch } from '../hooks/FetchCalls';
+import { FleaPrice, Stats } from '../api/types/ItemSingle/responseType';
 import { PriceHistoryChart } from '../components/recharts/PriceHistoryChart';
 
 type Params = {
@@ -34,12 +30,13 @@ export function ItemSingle() {
 
   const { normalizeName = '' } = useParams<Params>();
 
-  //const { data, isSuccess, isLoading, isError, error } =useSingleItemGraphQuery(normalizeName);
-  //useSingleItemFetch
-
-  const { data, isSuccess, isLoading, isError, error } =
-    useItemSingleFetch(normalizeName);
-  const item = isSuccess && data ? (data as ItemSingleResponse) : null;
+  const {
+    data: item,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+  } = useItemSingleFetch(normalizeName);
 
   // This section validates the data:
   // For crafting and barter, if there are identical items in the input and output, only one instance should be shown.

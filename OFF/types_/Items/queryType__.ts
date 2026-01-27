@@ -1,60 +1,38 @@
-import { HistoricalPrices } from '../type';
-
-//????
-export type SingleItemPricesQueryType = {
-  id: string;
-
-  sellFor: SellFor[];
-
-  buyFor: BuyFor[];
-};
-//Query
-export type ItemSingleQuery = {
-  data: {
-    items: ItemSingleData[];
-  };
+export type CategoryType = BaseType & {
+  children: normalizedName[];
+  parent: normalizedName;
 };
 
-//Data
-export type ItemSingleData = {
+export type ItemBaseQueryType = {
   id: string;
+
   name: string;
-  shortName: string;
-  categories: name[];
 
-  lastLowPrice: number;
-  low24hPrice: number;
-  avg24hPrice: number;
-  high24hPrice: number;
-  changeLast48hPercent: number;
-  changeLast48h: number;
-  lastOfferCount: number;
-
-  width: number;
-  weight: number;
-  hasGrid: number;
-
-  inspectImageLink: string;
-  backgroundColor: string;
   gridImageLink: string;
 
-  description: string;
+  changeLast48h: number;
+
+  changeLast48hPercent: number;
+
+  sellFor: traderForType[];
+
+  buyFor: traderForType[];
+
+  category: normalizedName;
+};
+
+export type ItemDetailQueryType = {
+  id: string;
+
+  name: string;
+
+  normalizedName: string;
+
   wikiLink: string;
-
-  height: number;
-  velocity: number;
-  recoilModifier: number;
-  loudness: number;
-  accuracyModifier: number;
-  ergonomicsModifier: number;
-
-  updated: string;
 
   sellFor: SellFor[];
 
   buyFor: BuyFor[];
-
-  historicalPrices: HistoricalPrices[];
 
   bartersUsing: BartersUsing[];
 
@@ -68,8 +46,6 @@ export type ItemSingleData = {
 
   receivedFromTasks: ReceivedFromTask[];
 };
-//type HistoricalPrices
-
 export type ReceivedFromTask = {
   name: string;
   finishRewards: FinishRewards;

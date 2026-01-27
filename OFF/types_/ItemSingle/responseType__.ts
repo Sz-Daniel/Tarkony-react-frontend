@@ -1,23 +1,31 @@
-//Response
-export type ItemBaseResponse = {
+export type SingleItemPricesResultType = {
+  id: string;
+  sellTo: SellTo[];
+  buyFrom: BuyFrom[];
+};
+export type SingleItemResultType = {
   id: string;
   name: string;
-  iconURL: string;
-  bestSeller: PriceDeal | null;
-  bestBuy: PriceDeal | null;
-  changePrice: number;
-  changePercent: number;
-  category: string;
-};
+  shortName: string;
+  categories: string[];
 
-export type ItemDetailResponse = {
-  id: string | null;
+  width: number;
+  weight: number;
+  height: number;
+  hasGrid: number;
 
-  name: string;
+  inspectImageLink: string;
+  backgroundColor: string;
+  gridImageLink: string;
 
-  normalizedName: string;
+  description: string;
+  wikiLink: string;
 
-  wiki: string;
+  updated: string;
+
+  fleaPrice: FleaPrice | null;
+
+  stats: Stats | null;
 
   sellTo: SellTo[];
 
@@ -31,20 +39,34 @@ export type ItemDetailResponse = {
 
   craftOutput: Craft[];
 
-  taskNeed: TaskNeed[] | null;
+  taskNeed: TaskNeed[];
 
-  taskGive: TaskGive[] | null;
+  taskGive: TaskGive[];
 };
 
-//Fragments
-export type TaskGive = {
-  name: string;
-  reward: TaskItem[] | null;
+export type Stats = {
+  velocity: number;
+  recoilModifier: number;
+  loudness: number;
+  accuracyModifier: number;
+  ergonomicsModifier: number;
 };
-
-export type TaskNeed = {
+export type FleaPrice = {
+  lastLowPrice: number;
+  low24hPrice: number;
+  avg24hPrice: number;
+  high24hPrice: number;
+  changeLast48hPercent: number;
+  changeLast48h: number;
+  lastOfferCount: number;
+};
+type TaskGive = {
   name: string;
-  task: Task[] | null;
+  reward: TaskItem[];
+};
+type TaskNeed = {
+  name: string;
+  task: Task[];
 };
 
 type Task = Description & TaskItem;
@@ -55,12 +77,7 @@ type TaskItem = {
   name: string;
   count: number;
 };
-
-export type PriceDeal = {
-  price: number;
-  place: string;
-};
-
+//craftUsing
 export type Craft = CraftRequirement & {
   inputItems: ResponseCountedItem[];
   outputItems: ResponseCountedItem[];
@@ -69,8 +86,8 @@ export type Craft = CraftRequirement & {
 type CraftRequirement = {
   id: string;
   duration: number;
-  stationRequirement: StationRequirement | null;
-  questRequirement: QuestRequirement | null;
+  stationRequirement: StationRequirement;
+  questRequirement: QuestRequirement;
 };
 
 type StationRequirement = {
@@ -79,7 +96,7 @@ type StationRequirement = {
   stationIcon: string;
 };
 
-export type Barter = (PurchaseRequirement | null) & {
+export type Barter = PurchaseRequirement & {
   inputItems: ResponseCountedItem[];
   outputItems: ResponseCountedItem[];
 };
@@ -96,7 +113,7 @@ type SellTo = PriceInfo & {
   traderName: string;
 };
 
-export type BuyFrom = PriceInfo & (PurchaseRequirement | null);
+type BuyFrom = PriceInfo & PurchaseRequirement;
 
 type PriceInfo = {
   priceRub: number;
@@ -115,7 +132,7 @@ type QuestRequirement = {
   name: string;
 };
 
-export type PlayertoTraderRequirements = {
+type PlayertoTraderRequirements = {
   traderName: string;
   traderIcon: string;
   traderLevel: number;
@@ -123,3 +140,13 @@ export type PlayertoTraderRequirements = {
   reputation: number;
   commerce: number;
 };
+
+/** NOT USING
+ * type HistoricalPrices = {
+    offerCount:number,
+    price: number,
+    priceMin: number,
+    timestamp: string,
+}
+ * 
+ */

@@ -1,10 +1,11 @@
-import { ItemBaseData, ItemDetailData } from '../types_/Items/queryType';
+/*
+import { ItemBaseData, ItemDetailData } from '../types/Items/queryType';
 import {
   ItemBaseResponse,
   ItemDetailResponse,
-} from '../types_/Items/responseType';
-import { ItemSingleData } from '../types_/ItemSingle/queryType';
-import { ItemSingleResponse } from '../types_/ItemSingle/responseType';
+} from '../types/Items/responseType';
+import { ItemSingleData } from '../types/ItemSingle/queryType';
+import { ItemSingleResponse } from '../types/ItemSingle/responseType';
 
 import {
   bestBuyCalc,
@@ -98,3 +99,4 @@ export function itemSingleAdapter(data: ItemSingleData): ItemSingleResponse {
     taskGive: taskGiveList ?? [],
   };
 }
+*/

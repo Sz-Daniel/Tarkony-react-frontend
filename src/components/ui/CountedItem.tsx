@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import type { ResponseCountedItem } from '../../../../../../junk/20260122/HE/api_/types__/ItemSingle/responseType';
-import type { PriceDeal } from '../../../../../../junk/20260122/HE/api_/types__/Items/responseType';
+import {
+  PriceDeal,
+  ResponseCountedItem,
+} from '../../api/types/Items/responseType';
 
 type Props = {
   item: ResponseCountedItem;

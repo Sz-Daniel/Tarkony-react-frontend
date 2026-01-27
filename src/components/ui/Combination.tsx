@@ -1,19 +1,15 @@
 import { Box, List, Paper, Typography } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { CountedItem } from './CountedItem';
-import type {
+
+import {
+  ItemBaseDisplay,
+  PriceDeal,
   Barter,
   Craft,
   ResponseCountedItem,
-} from '../../../../../../junk/20260122/HE/api_/types__/ItemSingle/responseType';
-
-import type {
-  ItemBaseResultType,
-  PriceDeal,
-} from '../../../../../../junk/20260122/HE/api_/types__/Items/responseType';
-//import { itemBaseQuery } from '../../api/queries/itemsQuery';
-import { ItemBaseResponse } from '../../api/types_/Items/responseType';
-import { itemBaseQuery } from '../../api/queries/_';
+} from '../../api/types/Items/responseType';
+import { itemBaseQuery } from '../../api/queries/itemsQuery';
 
 /**
  * Utilizes type discrimination to create a template compatible with both types.
@@ -30,7 +26,7 @@ type Props = { props: CombinationBarter | CombinationCraft };
 
 export function Combination({ props }: Props) {
   const queryClient = useQueryClient();
-  const itemBaseListCache: ItemBaseResponse[] =
+  const itemBaseListCache: ItemBaseDisplay[] =
     queryClient.getQueryData([itemBaseQuery.cacheName]) ?? [];
 
   // Find the best purchase price
@@ -98,20 +94,25 @@ export function Combination({ props }: Props) {
 
           {props.kind === 'Craft' && (
             <Box sx={{ flex: 1 }}>
-              <Box
-                component="img"
-                src={props.stationRequirement.stationIcon}
-                alt={props.stationRequirement.stationName}
-                sx={{ flex: 1, mr: 2 }}
-              />
-              <Typography variant="body2">
-                {Math.floor(props.duration / 60)} mins
-              </Typography>
-              <Typography variant="body2">
-                {props.stationRequirement.stationName} (Lvl{' '}
-                {props.stationRequirement.level})
-              </Typography>
-              {props.questRequirement.name && (
+              {props.stationRequirement && (
+                <>
+                  <Box
+                    component="img"
+                    src={props.stationRequirement.stationIcon}
+                    alt={props.stationRequirement.stationName}
+                    sx={{ flex: 1, mr: 2 }}
+                  />
+
+                  <Typography variant="body2">
+                    {Math.floor(props.duration / 60)} mins
+                  </Typography>
+                  <Typography variant="body2">
+                    {props.stationRequirement.stationName} (Lvl{' '}
+                    {props.stationRequirement.level})
+                  </Typography>
+                </>
+              )}
+              {props.questRequirement && (
                 <Typography variant="body2">
                   Quest: {props.questRequirement.name} (Lvl{' '}
                   {props.questRequirement.level})

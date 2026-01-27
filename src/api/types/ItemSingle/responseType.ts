@@ -1,13 +1,15 @@
-export type SingleItemPricesResultType = {
+import { HistoricalPrices } from '../type';
+
+export type ItemSinglePricesDisplay = {
   id: string;
   sellTo: SellTo[];
   buyFrom: BuyFrom[];
 };
-export type SingleItemResultType = {
+export type ItemSingleDisplay = {
   id: string;
   name: string;
   shortName: string;
-  categories: string[];
+  category: string[];
 
   width: number;
   weight: number;
@@ -24,6 +26,8 @@ export type SingleItemResultType = {
   updated: string;
 
   fleaPrice: FleaPrice | null;
+
+  historicalPrices: HistoricalPrices[];
 
   stats: Stats | null;
 
@@ -51,6 +55,7 @@ export type Stats = {
   accuracyModifier: number;
   ergonomicsModifier: number;
 };
+
 export type FleaPrice = {
   lastLowPrice: number;
   low24hPrice: number;
@@ -60,10 +65,12 @@ export type FleaPrice = {
   changeLast48h: number;
   lastOfferCount: number;
 };
+
 type TaskGive = {
   name: string;
   reward: TaskItem[];
 };
+
 type TaskNeed = {
   name: string;
   task: Task[];
@@ -77,6 +84,7 @@ type TaskItem = {
   name: string;
   count: number;
 };
+
 //craftUsing
 export type Craft = CraftRequirement & {
   inputItems: ResponseCountedItem[];
@@ -140,13 +148,3 @@ type PlayertoTraderRequirements = {
   reputation: number;
   commerce: number;
 };
-
-/** NOT USING
- * type HistoricalPrices = {
-    offerCount:number,
-    price: number,
-    priceMin: number,
-    timestamp: string,
-}
- * 
- */

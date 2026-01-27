@@ -18,14 +18,14 @@ import { useState } from 'react';
 import { Skeleton } from '../ui/skeletons/Skeleton';
 import { ErrorOverlay } from '../ui/Status';
 
-import { useItemDetailFetch } from '../../hooks_/FetchCalls';
-import { ItemDetailResponse } from '../../api/types_/Items/responseType';
+import { useItemDetailFetch } from '../../hooks/FetchCalls';
+import { ItemDetailDisplay } from '../../api/types/Items/responseType';
 
 type Props = {
   itemId: string;
 };
 
-const ItemDetailDisplay = ({ itemId }: Props) => {
+const ItemDetailView = ({ itemId }: Props) => {
   const navigate = useNavigate();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -33,7 +33,7 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
   //const { data, isSuccess, isLoading, isError, error } =useItemDetailGraphQuery(itemId);
   const { data, isSuccess, isLoading, isError, error } =
     useItemDetailFetch(itemId);
-  const item = isSuccess && data ? (data as ItemDetailResponse) : null;
+  const item = isSuccess && data ? (data as ItemDetailDisplay) : null;
   {
     isLoading && <Skeleton component="ItemDetail" />;
   }
@@ -244,4 +244,4 @@ const ItemDetailDisplay = ({ itemId }: Props) => {
   );
 };
 
-export { ItemDetailDisplay };
+export { ItemDetailView as ItemDetailDisplay };

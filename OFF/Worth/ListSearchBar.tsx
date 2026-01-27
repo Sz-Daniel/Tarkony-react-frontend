@@ -8,11 +8,11 @@ import {
   TextField,
 } from '@mui/material';
 
-import type { WorthNameListQueryType } from '../../../../../../junk/20260122/HE/api_/types__/Worth/queryType';
-import { worthNameListQuery } from '../../api/queries/worthQuery';
-import { ErrorOverlay } from '../ui/Status';
+import type { WorthNameListQueryType } from '../../../../../junk/20260122/HE/api_/types__/Worth/queryType';
+import { worthNameListQuery } from '../../src/api/queries/worthQuery';
+import { ErrorOverlay } from '../../src/components/ui/Status';
 import { useMemo, useState } from 'react';
-import { useFetchGraphQLIntoCache } from '../../api/clients/graphql';
+import { useFetchGraphQLIntoCache } from '../../src/api/clients/graphql';
 
 type Props = {
   setSelectedItem: React.Dispatch<React.SetStateAction<string>>;

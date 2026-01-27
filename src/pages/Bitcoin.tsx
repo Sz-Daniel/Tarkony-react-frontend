@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Grid, Paper, Button } from '@mui/material';
-import { useBitcoinFetch } from '../hooks_/FetchCalls';
+import { useBitcoinFetch } from '../hooks/FetchCalls';
 import { PriceHistoryChart } from '../components/recharts/PriceHistoryChart';
 
 export function Bitcoin() {

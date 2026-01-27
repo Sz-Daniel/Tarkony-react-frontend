@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { Chip } from '@mui/material';
 import { useSelectedBulkCategoryLogic } from './categoryLogic';
 
-import { CategoriesData } from '../../api/types_/Items/queryType';
-import { categoriesQuery } from '../../api/queries/_';
+import { CategoriesData } from '../../api/types/Items/queryType';
+import { categoriesQuery } from '../../api/queries/itemsQuery';
 
 interface Props {
   selectedCategory: string[];

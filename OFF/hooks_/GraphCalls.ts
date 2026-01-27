@@ -1,3 +1,4 @@
+/*
 import { bitcoinAdapter } from '../api/adapters/bitcoinAdapter';
 import {
   itemBaseAdapter,
@@ -15,18 +16,18 @@ import {
 import {
   PriceHistoryQueryType,
   PriceHistoryResponseType,
-} from '../api/types/Bitcoin/queryType';
+} from '../api/types_/Bitcoin/queryType__';
 import {
   CategoryType,
   ItemBaseQueryType,
   ItemDetailQueryType,
-} from '../api/types/Items/queryType';
+} from '../api/types_/Items/queryType__';
 import {
   ItemBaseResultType,
   ItemDetailResultType,
-} from '../api/types/Items/responseType';
-import { SingleItemQueryType } from '../api/types/ItemSingle/queryType';
-import { SingleItemResultType } from '../api/types/ItemSingle/responseType';
+} from '../api/types_/Items/responseType__';
+import { SingleItemQueryType } from '../api/types_/ItemSingle/queryType__';
+import { SingleItemResultType } from '../api/types_/ItemSingle/responseType__';
 
 import { PriceHistoryQuery } from '../../../../../junk/20260122/HE/api_/types__/Bitcoin/queryType';
 
@@ -67,3 +68,4 @@ export function useBitcoinGraphQuery_() {
 export function useBitcoinGraphQuery() {
   return useFetchGraphQLIntoCache<PriceHistoryQuery[]>(bitcoinQuery);
 }
+*/

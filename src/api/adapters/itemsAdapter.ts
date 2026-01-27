@@ -1,11 +1,3 @@
-import type {
-  ItemBaseQueryType,
-  ItemDetailQueryType,
-} from '../types/Items/queryType';
-import type {
-  ItemBaseResultType,
-  ItemDetailResultType,
-} from '../types/Items/responseType';
 import {
   bestBuyCalc,
   bestSellerCalc,
@@ -16,11 +8,14 @@ import {
   taskGiveCalc,
   taskNeedCalc,
 } from './adapters';
+import { ItemBaseData, ItemDetailData } from '../types/Items/queryType';
+import {
+  ItemBaseDisplay,
+  ItemDetailDisplay,
+} from '../types/Items/responseType';
 
-export function itemBaseAdapter(
-  data: ItemBaseQueryType[]
-): ItemBaseResultType[] {
-  return data.map((item: ItemBaseQueryType) => {
+export function itemBaseAdapter(data: ItemBaseData[]): ItemBaseDisplay[] {
+  return data.map((item: ItemBaseData) => {
     const bestSellerObj = bestSellerCalc(item.sellFor);
     const bestBuyObj = bestBuyCalc(item.buyFor);
     return {
@@ -36,9 +31,7 @@ export function itemBaseAdapter(
   });
 }
 
-export function itemDetailsAdapter(
-  data: ItemDetailQueryType
-): ItemDetailResultType {
+export function itemDetailsAdapter(data: ItemDetailData): ItemDetailDisplay {
   const sellToList = sellToListCalc(data.sellFor);
   const buyFromList = buyFromListCalc(data.buyFor);
   const barterInputList = IOBarterListCalc(data.bartersFor);

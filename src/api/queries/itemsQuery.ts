@@ -1,9 +1,10 @@
-import { QueryType } from '../types/type';
+import { Query } from '../types/type';
 
 export const categoriesQuery = {
-  name: 'categoriesQuery',
-  key: 'itemCategories',
-  query: `
+  cacheName: 'categoriesQuery',
+  restURL: 'api/Frontend/Categories',
+  graphqlField: 'itemCategories',
+  graphqlQuery: `
   query{
      itemCategories {
       id
@@ -20,9 +21,10 @@ export const categoriesQuery = {
 };
 
 export const itemBaseQuery = {
-  name: 'itemBaseQuery',
-  key: 'items',
-  query: `   
+  cacheName: 'itemBaseQuery',
+  restURL: 'api/Frontend/ItemBase',
+  graphqlField: 'items',
+  graphqlQuery: `   
   query {
     items {
       id
@@ -47,11 +49,12 @@ export const itemBaseQuery = {
   }`,
 };
 
-export const itemDetailsQuery = (id: string = ''): QueryType => {
+export const itemDetailsQuery = (id: string = ''): Query => {
   return {
-    name: `itemDetails-${id}`,
-    key: 'item',
-    query: `   
+    cacheName: `itemDetails-${id}`,
+    restURL: `api/Frontend/ItemDetail/${id}`,
+    graphqlField: 'item',
+    graphqlQuery: `   
     query {
       item(id: "${id}") {
         id
