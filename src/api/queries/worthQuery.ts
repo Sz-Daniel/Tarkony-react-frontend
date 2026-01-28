@@ -2,7 +2,7 @@
  * Name usage for cache naming
  * Key type name for identifying the object being processed so that the fetch can return an array
  * Query string for the API call
- */
+
 
 import { QueryType } from '../../../OFF/types_/type__';
 
@@ -229,3 +229,4 @@ export const worthItemMetaQuery = (id: string = ''): QueryType => {
     }`,
   };
 };
+*/

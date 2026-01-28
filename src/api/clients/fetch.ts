@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { Query } from '../types/type';
-import { axiosRest } from './rest';
+
 import { axiosGraphQLwQuery } from './graphql';
+import { axiosRest } from './rest';
 
 const STALE_TIME_WEEKLY = 1000 * 60 * 60 * 24 * 7;
 
