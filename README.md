@@ -1,6 +1,4 @@
-# Tarkony React Frontend - 2026.01
-
-~~[Tarkony frontend website w Azure](https://tarkony-bygtfddsfgebe5df.westeurope-01.azurewebsites.net/)~~
+# Tarkony React Frontend - 2026.05
 
 [Tarkony frontend website w Netlify](https://tarkony.netlify.app/)
 
@@ -13,11 +11,12 @@ Tarkony backend source online [Git](https://github.com/Sz-Daniel/Tarkony-aspdotn
 In this project, I am enhancing my frontend skills (React/TypeScript) by creating a system-level frontend that quickly delivers video game item data through a responsive, data-driven UI built on a clear, well-structured model.
 
 Tech stack: React, Typescript, React Query (Tanstack Query), Material UI, REST API, GraphQL API, Recharts
+
 Core Competencies: State Management, API Architectures, Data Visualization, Clean Code, Design Patterns, Design (S.O.L.I.D.) Principles, Performance Optimization, UX Features, Documentation, Version Control
 
-### Done: Bitcoin Price History Visualization - Recharts
+### Done: Price History Visualization - Recharts
 
-An ongoing frontend feature that displays historical Bitcoin price movements from a video game dataset on a dedicated `/bitcoin` page, using Recharts for data visualization.
+An ongoing frontend feature that displays historical Item price movements from a video game dataset. For now, only in Separate item page(ItemSingle) pages andon a dedicated `/bitcoin` page, using Recharts for data visualization.
 
 ### Data loading optimalization
 
@@ -35,17 +34,11 @@ The goal is for all components—regardless of where they are used—to be able 
 
 # Technical section
 
+## Junior Journal
+
 As a junior developer, I find it essential to maintain a **Junior Journal (JJ)** — a disciplined practice of detailed commenting, continuously updating the README, and logging any replaced methods or solutions. This helps track progress and decisions transparently.
 
-## Project Description
-
-**Tarkony** is a tool related to the online shooter game _Escape From Tarkov_. It provides:
-
-- Real-time item prices from both the flea market and vendors
-- Vendor availability
-- Crafting cost analysis (comparing crafting cost versus purchase cost)
-- Price-to-value rankings for armor and weapons
-- A weapon permutation builder
+Right from the start, I want to emphasize an important experience. As a junior, I considered it essential to thoroughly understand how LLM works. At first, I used ChatGPT to get familiar and experiment with how I can use it as an aid. However, it has often been more of a hindrance so far. Gradually, I reduced its usage and only sought guidance from it. Often, I deliberately did not put it aside, but I encountered many problems and lost a lot of time because of it. I did gain experience, though, and the final result was always the same: among its suggestions, there were some good functions worth seeing, but when I wrote the code myself, it was much shorter and worked more efficiently — the best example is the React Frontend Category
 
 ## Run Instructions
 
