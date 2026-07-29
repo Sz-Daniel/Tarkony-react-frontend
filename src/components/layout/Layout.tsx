@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { Footer } from './Footer';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { useState } from 'react';
+import { MaintenanceBanner } from '../Maintenance/Maintenance';
 
 export function MainLayout() {
   const [darkMode, setDarkMode] = useState(true);
@@ -25,6 +26,7 @@ export function MainLayout() {
   });
   return (
     <>
+     <MaintenanceBanner />
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <CssBaseline />
         <button onClick={() => setDarkMode(!darkMode)}>Toggle Dark Mode</button>

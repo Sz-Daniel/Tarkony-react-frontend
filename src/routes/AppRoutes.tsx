@@ -3,6 +3,7 @@ import { MainLayout } from '../components/layout/Layout';
 import { Items } from '../pages/Items';
 import { ItemSingle } from '../pages/ItemSingle';
 import { Bitcoin } from '../pages/Bitcoin';
+import { MaintenancePage } from '../components/Maintenance/Maintenance';
 
 export function AppRoutes() {
   // <BrowserRouter basename="/Tarkony-react-frontend">
@@ -11,8 +12,8 @@ export function AppRoutes() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Items />} />
-          <Route path="/item/:normalizeName" element={<ItemSingle />} />
-          <Route path="/bitcoin" element={<Bitcoin />} />
+          <Route path="/item/:normalizeName" element={<MaintenancePage />} />
+          <Route path="/bitcoin" element={<MaintenancePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
